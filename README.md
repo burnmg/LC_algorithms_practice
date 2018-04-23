@@ -1,7 +1,8 @@
 # Ruolin's Leetcode Practice NoteBook
 A repo for Ruolin's LC practice
 
-## [526. Beautiful Arrangement](https://leetcode.com/problems/beautiful-arrangement/description/)
+## Backtracking
+### [526. Beautiful Arrangement](https://leetcode.com/problems/beautiful-arrangement/description/)
 ```python
 class Solution(object):
     def countArrangement(self, N):

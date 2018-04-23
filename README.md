@@ -3,8 +3,25 @@ A repo for Ruolin's LC practice
 
 ## Array
 
+## Hashtable
+### [217. Contains Duplicate](https://leetcode.com/problems/contains-duplicate/description/)
+```python
+class Solution(object):
+    def containsDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        s = set()
+        for x in nums:
+            if x in s:
+                return True
+            else:
+                s.add(x)
+        
+        return False
+```
 ### [667. Beautiful Arrangement II](https://leetcode.com/problems/beautiful-arrangement-ii/description/)
-
 ```python
 class Solution(object):
     def constructArray(self, n, k):

@@ -28,24 +28,6 @@ class Solution(object):
 We firstly satisfy the condition of k different differences. Then we append rest of numbers.
 
 ## Hashtable
-### [217. Contains Duplicate](https://leetcode.com/problems/contains-duplicate/description/)
-```python
-class Solution(object):
-    def containsDuplicate(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: bool
-        """
-        s = set()
-        for x in nums:
-            if x in s:
-                return True
-            else:
-                s.add(x)
-        
-        return False
-```
-
 
 
 ## Backtracking

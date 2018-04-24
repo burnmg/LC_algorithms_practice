@@ -47,6 +47,7 @@ class Solution(object):
 
 ```
 `dict.setdefault(x,i)` adds an element only if they key does not exist.
+
 `collections.Counter(nums)` returns a dict that counts elements' frequency. Each entry is `{'element':count}`
 
 ## Backtracking

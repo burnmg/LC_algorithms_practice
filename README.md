@@ -28,7 +28,26 @@ class Solution(object):
 We firstly satisfy the condition of k different differences. Then we append rest of numbers.
 
 ## Hashtable
+### [697. Degree of an Array](https://leetcode.com/problems/degree-of-an-array/description/)
+```python
+class Solution(object):
+    def findShortestSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        start,end = {},{}
+        for i,x in enumerate(nums):
+            start.setdefault(x,i)
+            end[x] = i
+        c = collections.Counter(nums)
+        degree = max(c.values())
+        
+        return min(end[x] - start[x] + 1 for x in c if c[x] == degree)
 
+```
+`dict.setdefault(x,i)` adds an element only if they key does not exist.
+`collections.Counter(nums)` returns a dict that counts elements' frequency. Each entry is `{'element':count}`
 
 ## Backtracking
 ### [526. Beautiful Arrangement](https://leetcode.com/problems/beautiful-arrangement/description/)

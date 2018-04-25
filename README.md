@@ -3,7 +3,7 @@ A repo for Ruolin's LC practice
 
 ## Array
 
-### [238. Product of Array Except Self] (https://leetcode.com/problems/product-of-array-except-self/description/)
+### [238. Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/description/)
 ```python
 class Solution(object):
     def productExceptSelf(self, nums):

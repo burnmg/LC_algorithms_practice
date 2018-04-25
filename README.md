@@ -27,6 +27,26 @@ class Solution(object):
 ```
 We firstly satisfy the condition of k different differences. Then we append rest of numbers.
 
+## Two Pointer
+### [27. Remove Element](https://leetcode.com/problems/remove-element/description/)
+```python
+class Solution(object):
+    def removeElement(self, nums, val):
+        """
+        :type nums: List[int]
+        :type val: int
+        :rtype: int
+        """
+        i,j = 0, len(nums) - 1
+        while i <= j:
+            if nums[i] == val:
+                nums[i],nums[j] = nums[j],nums[i]
+                j -= 1
+            else:
+                i += 1
+        return i
+```
+Remember to use '<=' in the loop of two pointer algorithms. 
 ## Hashtable
 ### [697. Degree of an Array](https://leetcode.com/problems/degree-of-an-array/description/)
 ```python
@@ -67,5 +87,6 @@ class Solution(object):
         return count(N, set(range(1,N+1)))
                 
 ```
+
 Trick: lower ith is likely to contain "beautiful" value, so we run backwards so we can eliminate "unbeautiful" chains faster. This makes our search space smaller. 
 

@@ -3,6 +3,26 @@ A repo for Ruolin's LC practice
 
 ## Array
 
+### [119. Pascal's Triangle II](https://leetcode.com/problems/pascals-triangle-ii/description/)
+```python
+class Solution(object):
+    def getRow(self, rowIndex):
+        """
+        :type rowIndex: int
+        :rtype: List[int]
+        """
+        res = [1]
+        
+        for _ in range(rowIndex):
+            res = [x+y for x,y in zip([0]+res, res+[0])]
+        
+        return res
+```
+VERY GOOD PROBLEM.
+Use 0 as a padding number for each row.
+
+Use `zip()` to compose each numbers from previous row. Very smart.
+
 ### [238. Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/description/)
 ```python
 class Solution(object):

@@ -113,7 +113,60 @@ class Solution(object):
 
 `collections.Counter(nums)` returns a dict that counts elements' frequency. Each entry is `{'element':count}`
 
+### Contains Duplicate II
+```python
+class Solution(object):
+    def containsNearbyDuplicate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: bool
+        """
+        d = {}
+        for i,x in enumerate(nums):
+            if x in d and i-d[x] <= k:
+                    return True
+            d[x] = i
+        
+        return False
+``
+
 ## Backtracking
+[401. Binary Watch](https://leetcode.com/problems/binary-watch/description/)
+```python
+class Solution(object):
+    def readBinaryWatch(self, num):
+        """
+        :type num: int
+        :rtype: List[str]
+        """
+        res = []
+        for h in range(0,12):
+            for m in range(0, 60):
+                if (bin(h) + bin(m)).count('1') == num:
+                    res.append('%d:%02d' % (h,m))
+        return res
+```
+Try all different times and return the one with `num` number of `1`.
+
+It is a reverse thinking of solving problem. We work from time to binary, not from binary to time. 
+
+[78. Subsets](https://leetcode.com/problems/subsets/description/)
+
+```python 
+class Solution(object):
+    def subsets(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        res = [[]]
+        for x in nums:
+            res += [[x] + i for i in res]
+        return res
+```     
+GOOD PROBLEM. Remember this formula for generating all possible combinations.           
+
 ### [526. Beautiful Arrangement](https://leetcode.com/problems/beautiful-arrangement/description/)
 ```python
 class Solution(object):

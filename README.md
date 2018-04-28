@@ -129,7 +129,7 @@ class Solution(object):
             d[x] = i
         
         return False
-``
+```
 
 ## Backtracking
 
@@ -184,7 +184,7 @@ Backtracking model template.
 See comment for cutting search space technique
 
 
-[401. Binary Watch](https://leetcode.com/problems/binary-watch/description/)
+### [401. Binary Watch](https://leetcode.com/problems/binary-watch/description/)
 ```python
 class Solution(object):
     def readBinaryWatch(self, num):
@@ -203,7 +203,7 @@ Try all different times and return the one with `num` number of `1`.
 
 It is a reverse thinking of solving problem. We work from time to binary, not from binary to time. 
 
-[78. Subsets](https://leetcode.com/problems/subsets/description/)
+### [78. Subsets](https://leetcode.com/problems/subsets/description/)
 
 ```python 
 class Solution(object):

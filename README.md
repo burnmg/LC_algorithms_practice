@@ -132,6 +132,58 @@ class Solution(object):
 ``
 
 ## Backtracking
+
+
+### [46. Permutations](https://leetcode.com/problems/permutations/description/)
+
+```python
+class Solution(object):
+    def permute(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        def per(nums):
+            if len(nums) == 1: return [[nums[0]]]
+            res = []
+            for i,x in enumerate(nums):
+                for s in per(nums[:i]+nums[i+1:]):
+                    res += [[x] + s]
+            return res
+        return per(nums)
+        
+```
+
+### [77. Combinations](https://leetcode.com/problems/combinations/description/)
+```python
+class Solution(object):
+    def combine(self, n, k):
+        """
+        :type n: int
+        :type k: int
+        :rtype: List[List[int]]
+        """
+        x = 1
+        temp = []
+        res = []
+        while True:
+            if len(temp) == k:
+                res.append(temp[:])
+            if len(temp) == k or x > n - k + len(temp) + 1: # cut search space by stop searching if there are not enough numbers
+                if not temp:
+                    return res
+                x = temp.pop() + 1
+            else:
+                temp.append(x)
+                x += 1
+        
+        
+```
+Backtracking model template. 
+
+See comment for cutting search space technique
+
+
 [401. Binary Watch](https://leetcode.com/problems/binary-watch/description/)
 ```python
 class Solution(object):

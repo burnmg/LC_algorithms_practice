@@ -1,5 +1,5 @@
 class Solution(object):
-    def permuteUnique(self, nums):
+    def permuteUnique2(self, nums):
         """
         :type nums: List[int]
         :rtype: List[List[int]]
@@ -18,3 +18,20 @@ class Solution(object):
             return res
             
         return recur(nums)
+    
+    def permuteUnique(self, nums): # Top-Down Recursion
+        
+        res = []
+        def recur(nums, temp, result):
+            if len(nums) == 0:
+                result.append(temp)
+                return
+            dup = set()
+            for i in range(len(nums)):
+                if nums[i] in dup:
+                    continue
+                dup.add(nums[i])
+                recur(nums[:i] + nums[i+1:],  temp + [nums[i]], result)
+           
+        recur(nums, [], res)
+        return res

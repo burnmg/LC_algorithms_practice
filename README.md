@@ -132,7 +132,50 @@ class Solution(object):
 ```
 
 ## Backtracking
+### [22. Generate Parentheses](https://leetcode.com/problems/generate-parentheses/description/)
+```python
+class Solution:
+    def generateParenthesis(self, n):
+        def recur(n):
+            if n==1: return set(["()"])
+            
+            res = set()
+            for x in recur(n-1):
+                for i in range(len(x)):
+                    res.add(x[:i] + "()" + x[i:])
+            
+            return res
+        return list(recur(n))
+        
+            
+```
+Recursion solution
 
+
+[47. Permutations II](https://leetcode.com/problems/permutations-ii/description/)
+```python
+class Solution(object):
+    def permuteUnique(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        def recur(nums):
+            if len(nums) == 1: return [nums]
+            dup = set()
+            res = []
+            for i in range(len(nums)):
+                if nums[i] in dup:
+                    continue
+                dup.add(nums[i])
+                for x in recur(nums[:i] + nums[i+1:]):
+                    res.append([nums[i]] + x)
+            
+            return res
+            
+        return recur(nums)
+```
+Recursion solution
 
 ### [46. Permutations](https://leetcode.com/problems/permutations/description/)
 

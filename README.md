@@ -172,10 +172,10 @@ class Solution(object):
             if len(temp) == k or x > n - k + len(temp) + 1: # cut search space by stop searching if there are not enough numbers
                 if not temp:
                     return res
-                x = temp.pop() + 1
+                x = temp.pop() + 1 # General rule: if the return temp condition is not met, just break the condition without inserting node to the temp. Don't insert new node to the temp here. Insert in next iteration
             else:
-                temp.append(x)
-                x += 1
+                temp.append(x) 
+                x += 1 
         
         
 ```

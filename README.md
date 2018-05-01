@@ -3,6 +3,29 @@ A repo for Ruolin's LC practice
 
 ## Array
 
+### [152. Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray/description/)
+```python
+class Solution(object):
+    def maxProduct(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if len(nums) == 1: return nums[0]
+        max_product_ending_i = min_product_ending_i = max_product = nums[0]
+        for i in range(1, len(nums)):
+            prev = [max_product_ending_i*nums[i], min_product_ending_i*nums[i] , nums[i]]
+            max_product_ending_i = max(prev)
+            min_product_ending_i = min(prev)
+            max_product = max(max_product_ending_i, max_product)
+        
+        return max_product
+                                        
+```
+Template for subarray DP problem. 
+
+Use the though of `max_ending_here` DP. It is a similar problem to "Max sub array". 
+
 ### [119. Pascal's Triangle II](https://leetcode.com/problems/pascals-triangle-ii/description/)
 ```python
 class Solution(object):
@@ -299,3 +322,19 @@ class Solution(object):
 
 Trick: lower ith is likely to contain "beautiful" value, so we run backwards so we can eliminate "unbeautiful" chains faster. This makes our search space smaller. 
 
+
+## Math
+### [628. Maximum Product of Three Numbers](https://leetcode.com/problems/maximum-product-of-three-numbers/description/)
+
+```python
+class Solution(object):
+    def maximumProduct(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        f = lambda x,y: x*y
+        return max(reduce(f, heapq.nlargest(3, nums)), reduce(f, heapq.nsmallest(2, nums) + heapq.nlargest(1, nums)))
+
+```
+`heapq.nlargest(n, nums)` is `O(n*nums)`. It means that it can be `O(n)` if n is a constant and nums is `n`.

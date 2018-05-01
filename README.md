@@ -114,6 +114,39 @@ class Solution(object):
 ```
 Remember to use '<=' in the loop of two pointer algorithms. 
 ## Hashtable
+
+### [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/description/)
+
+```python
+class Solution(object):
+    def subarraySum(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        cur_sum = 0
+        count = 0
+        _hash = {0:1} # hash 0 elements' sum
+        for i in range(len(nums)):
+            cur_sum += nums[i]
+            diff = cur_sum - k
+            if diff in _hash:
+                count += _hash[diff]
+                
+            if cur_sum in _hash:
+                _hash[cur_sum] += 1
+            else:
+                _hash[cur_sum] = 1
+                
+        return count
+                                     
+```
+We want to find subarrays that are added to `k`. 
+
+Use hash table to store all cumulative sums, and then use `cur_sum[j] - cur_sum[i]` to find sums ending at `j`. Then for any `j`, if there are `y` `cur_sum[i]` such that `cur_sum[j] = cur_sum[i] - k`, then there will be `y` sums ending at `j` equals to k. 
+
+
 ### [697. Degree of an Array](https://leetcode.com/problems/degree-of-an-array/description/)
 ```python
 class Solution(object):
@@ -153,6 +186,7 @@ class Solution(object):
         
         return False
 ```
+## Dynamic Programming 
 
 ## Backtracking
 ### [22. Generate Parentheses](https://leetcode.com/problems/generate-parentheses/description/)

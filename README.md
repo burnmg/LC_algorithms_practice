@@ -372,3 +372,75 @@ class Solution(object):
 
 ```
 `heapq.nlargest(n, nums)` is `O(n*nums)`. It means that it can be `O(n)` if n is a constant and nums is `n`.
+
+## Linked List
+
+### [817. Linked List Components](https://leetcode.com/problems/linked-list-components/description/)
+```python 
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def numComponents2(self, head, G):
+        """
+        :type head: ListNode
+        :type G: List[int]
+        :rtype: int
+        """
+        g = set(G)
+        comp = []
+        cur = head
+        prev_val = -1
+        count = 0
+        while cur:
+            if cur.val in g and (len(comp) == 0 or comp[-1] == prev_val):
+                comp.append(cur.val)
+            else:
+                if len(comp) > 0: 
+                    count += 1
+                comp = []
+            prev_val = cur.val
+            cur = cur.next
+        if len(comp) > 0:
+            count += 1
+            
+        
+        return count
+    
+    def numComponents(self, head, G): # better solution
+        setG = set(G)
+        res = 0
+        while head:
+            if head.val in setG and (head.next == None or head.next.val not in setG):
+                res += 1
+            head = head.next
+        return res
+
+```
+See the better solution. 
+Its idea is to count when the condition we cannot build larger component and we don't need to store each component in this problem. 
+
+
+### [206. Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/description/)
+```python
+class Solution(object):
+    def reverseList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        current_node = head
+        previous_node = None
+        while current_node:
+            next_temp = current_node.next
+            current_node.next = previous_node
+            previous_node = current_node
+            current_node = next_temp
+        return previous_node
+            
+            
+```
+Template for reversing linked lists. 

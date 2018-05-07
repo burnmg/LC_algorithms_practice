@@ -374,6 +374,78 @@ class Solution(object):
 `heapq.nlargest(n, nums)` is `O(n*nums)`. It means that it can be `O(n)` if n is a constant and nums is `n`.
 
 ## Linked List
+### [141. Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/description/)
+```python 
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def hasCycle(self, head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        """
+        dum = ListNode(0)
+        dum.next = head
+        slow = dum
+        fast = dum.next
+        while fast and fast.next:
+            if fast is slow: return True
+            slow = slow.next
+            fast = fast.next.next
+        
+        return False
+```
+Use slow-fast pointers approach for linked list cycle problems to avoid additional memory cost
+
+### [142. Linked List Cycle II](https://leetcode.com/problems/linked-list-cycle-ii/description/)
+```python
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def detectCycle(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        dum = ListNode(0)
+        dum.next = head
+        slow = dum
+        fast = slow.next
+        
+        found_cycle = False
+        while fast and fast.next:
+            if fast is slow:
+                found_cycle = True
+                break
+            fast = fast.next.next
+            slow = slow.next
+        
+        if not found_cycle:
+            return None
+        
+        slow = slow.next 
+        while not (slow is dum):
+            dum = dum.next
+            slow = slow.next
+            
+        return dum
+            
+```
+See (https://leetcode.com/problems/linked-list-cycle-ii/discuss/44783/Share-my-python-solution-with-detailed-explanation).
+
+This is a Math problem. Drawing the graph makes the solution easier to understand. 
+
+If Slow has moved `k` steps, then Fast has moved `2k+1` steps (it starts at the second node). If they meet at this position, we know `k+nc = 2k + 1` where `c` is the length of the cycle and `n` is an integer and `n>=0`. Then `k = nc-1`. Let `k=a+b` where `a` is the distance between the start of the list to the start of the cycle. Then `a = nc - b - 1` where `nc - b` is the distance between meeting point and the start of the cycle (the distance of the "other side" curve of the cycle). 
+
+
 
 ### [817. Linked List Components](https://leetcode.com/problems/linked-list-components/description/)
 ```python 

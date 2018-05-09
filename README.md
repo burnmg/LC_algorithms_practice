@@ -445,7 +445,38 @@ This is a Math problem. Drawing the graph makes the solution easier to understan
 
 If Slow has moved `k` steps, then Fast has moved `2k+1` steps (it starts at the second node). If they meet at this position, we know `k+nc = 2k + 1` where `c` is the length of the cycle and `n` is an integer and `n>=0`. Then `k = nc-1`. Let `k=a+b` where `a` is the distance between the start of the list to the start of the cycle. Then `a = nc - b - 1` where `nc - b` is the distance between meeting point and the start of the cycle (the distance of the "other side" curve of the cycle). 
 
+### []()
 
+```python
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def deleteDuplicates(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        dum = ListNode(0)
+        dum.next = head
+        prev = dum
+        while head and head.next: # head and head.next
+            if head.val == head.next.val:
+                while head.next and head.val == head.next.val:
+                    head = head.next
+                prev.next = head.next
+                head = head.next
+            else:
+                prev = head
+                head = head.next
+        return dum.next
+            
+
+```
+use both `head` and `head.next` in the while loop condition if `head` could be assigned by `head.next.next` in the loop.
 
 ### [817. Linked List Components](https://leetcode.com/problems/linked-list-components/description/)
 ```python 

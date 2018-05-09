@@ -374,6 +374,10 @@ class Solution(object):
 `heapq.nlargest(n, nums)` is `O(n*nums)`. It means that it can be `O(n)` if n is a constant and nums is `n`.
 
 ## Linked List
+
+### General Rules
+In most cases, use 'while cur' in the loop condition, but if `cur = cur.next.next...` is possible in the loop, use 'while cur and cur.next'
+
 ### [141. Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/description/)
 ```python 
 # Definition for singly-linked list.

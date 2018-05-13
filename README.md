@@ -114,6 +114,25 @@ class Solution(object):
 ```
 Remember to use '<=' in the loop of two pointer algorithms. 
 ## Hashtable
+### [454. 4Sum II](https://leetcode.com/problems/4sum-ii/description/)
+```python 
+class Solution(object):
+    def fourSumCount(self, A, B, C, D):
+        """
+        :type A: List[int]
+        :type B: List[int]
+        :type C: List[int]
+        :type D: List[int]
+        :rtype: int
+        """
+        AB = collections.Counter(a+b for a in A for b in B)
+        
+        return sum(AB[-c-d] for c in C for d in D)
+        
+```
+Remember of usage of `collections.Counter`
+
+The idea is to use hashtable and count all possible sum (a+b)values of AB elements, and then find all negative sums (-c-d) of CD that equal to the hashed sum of AB. For each time we find a match `AB[-c-d]`, we add the value of `AB[-c-d]` to our returned count. 
 
 ### [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/description/)
 
@@ -551,3 +570,52 @@ class Solution(object):
             
 ```
 Template for reversing linked lists. 
+
+## Binary Search
+
+### [35. Search Insert Position](https://leetcode.com/problems/search-insert-position/description/)
+
+```python
+class Solution(object):
+    def searchInsert(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        a,b = 0, len(nums) - 1
+        while a<=b:
+            m = (a + b) // 2
+            if nums[m] == target:
+                return m
+            elif nums[m] > target:
+                b = m-1
+            else:
+                a = m +1
+        
+        return a 
+```
+Template for binary search insertion. Pay attention to `<=`.
+
+The return value is `a` not `m`. 
+
+## Divide and Conquer
+
+### [240. Search a 2D Matrix II](https://leetcode.com/problems/search-a-2d-matrix-ii/description/)
+
+```python 
+    def searchMatrix(self, matrix, target):
+        
+        top,right = 0, len(matrix[0]) - 1
+        top_bound = len(matrix) - 1
+        
+        while top <= top_bound and right >= 0:
+            if matrix[top][right] == target:
+                return True
+            elif matrix[top][right] > target:
+                right -= 1
+            else:
+                top += 1
+        return False 
+```
+Rule out ineligible rows and columns

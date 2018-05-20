@@ -673,3 +673,26 @@ The return value is `a` not `m`.
         return False 
 ```
 Rule out ineligible rows and columns
+
+## String
+
+### [557. Reverse Words in a String III](https://leetcode.com/problems/reverse-words-in-a-string-iii/description/)
+
+```python 
+class Solution(object):
+    def reverseWords2(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        sl = s.split(' ')
+        res = []
+        for word in sl:
+            res += list(word)[::-1] + [' ']
+        
+        return "".join(res[:-1])
+    
+    def reverseWords(self, s): # One line version, faster. 
+        return ' '.join(x[::-1] for x in s.split())
+```
+`join` joins strings with given delimiter. 

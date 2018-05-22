@@ -696,3 +696,56 @@ class Solution(object):
         return ' '.join(x[::-1] for x in s.split())
 ```
 `join` joins strings with given delimiter. 
+
+### [6. ZigZag Conversion](https://leetcode.com/problems/zigzag-conversion/description/)
+
+```python
+class Solution(object):
+    def convert(self, s, numRows):
+        """
+        :type s: str
+        :type numRows: int
+        :rtype: str
+        """
+        if numRows == 1: return s
+        res = ['' for i in range(numRows)]
+        movingDown = True
+        i = 0
+        step = -1
+        for x in s:
+            res[i] += x
+            if i == len(res) - 1 or i == 0:
+                step *= -1
+                
+            if movingDown:
+                i += step
+            else:
+                i -= step
+                
+        return "".join(res)
+```
+Use `+=` to append character to a string. It is also fast. 
+
+Use `step` and `step *= -1` to reverse the moving direction. 
+
+### [387. First Unique Character in a String](https://leetcode.com/problems/first-unique-character-in-a-string/description/)
+
+```python
+class Solution(object):
+    def firstUniqChar(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        
+        letters='abcdefghijklmnopqrstuvwxyz'
+        index = []
+        for l in letters:
+            if s.count(l) == 1:
+                index += [s.index(l)]
+        return min(index) if len(index) > 0 else -1
+```
+Use `count`
+
+
+

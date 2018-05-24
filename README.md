@@ -261,6 +261,28 @@ class Solution(object):
 ```
 ## Dynamic Programming 
 
+### [96. Unique Binary Search Trees](https://leetcode.com/problems/unique-binary-search-trees/description/)
+
+```python
+class Solution(object):
+    def numTrees(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        res = [0] * (n+1)
+        res[0] = 1
+        for i in range(1, n+1):
+            for j in range(i):
+                res[i] += res[j] * res[i-j-1]
+        
+        return res[n]
+             
+```
+The idea is based on [this](https://leetcode.com/problems/unique-binary-search-trees/discuss/31666/DP-Solution-in-6-lines-with-explanation.-F(i-n)-G(i-1)-*-G(n-i)). 
+
+
+
 ## Backtracking
 ### [22. Generate Parentheses](https://leetcode.com/problems/generate-parentheses/description/)
 ```python
@@ -747,5 +769,26 @@ class Solution(object):
 ```
 Use `count`
 
+
+## String
+
+### [242. Valid Anagram](https://leetcode.com/problems/valid-anagram/description/)
+```python
+class Solution(object):
+    def isAnagram2(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        
+        return collections.Counter(s) == collections.Counter(t)
+    
+    def isAnagram(self, s, t):
+            return all([s.count(c)==t.count(c) for c in string.ascii_lowercase])
+```
+Example usage of `all`. 
+
+It is also normal to see that we use alphabet to search and check chars in strings. 
 
 

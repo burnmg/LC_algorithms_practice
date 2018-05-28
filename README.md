@@ -667,7 +667,7 @@ class Solution(object):
             elif nums[m] > target:
                 b = m-1
             else:
-                a = m +1
+                a = m+1
         
         return a 
 ```
@@ -817,4 +817,47 @@ class Solution(object):
         
 ```
 
+### [95. Unique Binary Search Trees II](https://leetcode.com/problems/unique-binary-search-trees-ii/description/)
 
+```python 
+class Solution(object):
+    def generateTrees(self, n):
+        """
+        :type n: int
+        :rtype: List[TreeNode]
+        """
+        def generate(values):
+            if len(values) == 1:
+                return [TreeNode(values[0])]
+            if len(values) == 0:
+                return []
+            
+            res = []
+            for i, x in enumerate(values):
+                left_set = generate(values[:i])
+                right_set = generate(values[i+1:])
+                
+                if len(left_set) == 0: # 
+                    for r in right_set:
+                        node = TreeNode(x)
+                        node.right = r
+                        res.append(node)
+                        
+                elif len(right_set) == 0:
+                    for l in left_set:
+                        node = TreeNode(x)
+                        node.left = l
+                        res.append(node)                
+                else:
+                    for l in left_set: 
+                        for r in right_set:
+                            node = TreeNode(x)
+                            node.left = l
+                            node.right = r
+                            res.append(node)
+            
+            return res
+        
+        return generate(range(1,n+1))
+```
+Example of how to take cartesian product of two lists (`left_set` and `right_set`)

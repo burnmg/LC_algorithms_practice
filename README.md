@@ -793,6 +793,28 @@ It is also normal to see that we use alphabet to search and check chars in strin
 
 ## Tree
 
+### [144. Binary Tree Preorder Traversal](https://leetcode.com/problems/binary-tree-preorder-traversal/description/)
+
+```python 
+    def preorderTraversal(self, root):
+        
+        if not root:
+            return []
+        stack = [root]
+        res = []
+        while stack:
+            x = stack.pop()
+            
+            res.append(x.val)
+
+            if x.right:
+                stack.append(x.right)
+            if x.left:
+                stack.append(x.left)
+        return res
+```
+Use stack to do the preorder traversal. 
+
 ### [101. Symmetric Tree](https://leetcode.com/problems/symmetric-tree/description/)
 
 ```python 

@@ -793,6 +793,84 @@ It is also normal to see that we use alphabet to search and check chars in strin
 
 ## Tree
 
+### [652. Find Duplicate Subtrees](https://leetcode.com/problems/find-duplicate-subtrees/description/)
+```python 
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    
+    def findDuplicateSubtrees(self, root): 
+        
+        def hash_tree(root):
+            if not root:
+                return None
+            tree_id = (hash_tree(root.left), root.val, hash_tree(root.right))
+            count[tree_id].append(root)
+            return tree_id
+        
+        count = collections.defaultdict(list)
+        hash_tree(root)
+        return [nodes.pop() for nodes in count.values() if len(nodes) >= 2]
+        
+        
+            
+```
+This is how do we hash a tree.
+### [449. Serialize and Deserialize BST](https://leetcode.com/problems/serialize-and-deserialize-bst/description/)
+```python 
+class Codec:
+
+    def serialize(self, root):
+        """Encodes a tree to a single string.
+        
+        :type root: TreeNode
+        :rtype: str
+        """
+        if not root:
+            return ''
+        stack = [root]
+        res = []
+        while stack:
+            x = stack.pop()
+            res.append(str(x.val))
+            
+            if x.right:
+                stack.append(x.right)
+            if x.left:
+                stack.append(x.left)
+        
+        return ' '.join(res)
+                
+            
+            
+
+    def deserialize(self, data):
+        """Decodes your encoded data to tree.
+        
+        :type data: str
+        :rtype: TreeNode
+        """
+        queue = collections.deque(int(s) for s in data.split())
+        def build(min_val, max_val):
+            if queue and min_val < queue[0] < max_val:
+                root = TreeNode(queue.popleft())
+                root.left = build(min_val, root.val)
+                root.right = build(root.val, max_val)
+                return root
+            return None
+        return build(float('-inf'), float('inf'))
+                
+```
+See function `build`. It is an O(n) way to build a binary search tree given a string from pre-ordered tree traversal. 
+
+
+
+
 ### [144. Binary Tree Preorder Traversal](https://leetcode.com/problems/binary-tree-preorder-traversal/description/)
 
 ```python 

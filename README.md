@@ -167,7 +167,25 @@ class Solution(object):
         return i
 ```
 Remember to use '<=' in the loop of two pointer algorithms. 
+
 ## Hashtable
+
+### [347. Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/description/)
+
+```python 
+class Solution(object):
+    def topKFrequent(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        res = collections.Counter(nums).most_common(k)
+        
+        return [x[0] for x in res]
+```
+Use `most_common` after `Counter`
+
 ### [454. 4Sum II](https://leetcode.com/problems/4sum-ii/description/)
 ```python 
 class Solution(object):
@@ -677,6 +695,38 @@ The return value is `a` not `m`.
 
 ## Divide and Conquer
 
+### [241. Different Ways to Add Parentheses](https://leetcode.com/problems/different-ways-to-add-parentheses/description/)
+```python
+class Solution(object):
+    def diffWaysToCompute(self, input):
+        """
+        :type input: str
+        :rtype: List[int]
+        """
+        if input.isdigit():
+            return [int(input)]
+
+        res = []
+        for i, x in enumerate(input):
+            if x in'+-*':
+                a = self.diffWaysToCompute(input[:i])
+                b = self.diffWaysToCompute(input[i+1:])
+                for x1 in a:
+                    for x2 in b:
+                        if x == '+':
+                            res.append(x1+x2)
+                        elif x == '-':
+                            res.append(x1-x2)
+                        else:
+                            res.append(x1*x2)
+        return res
+    
+            
+```
+Divide and Conquer example.
+
+
+
 ### [240. Search a 2D Matrix II](https://leetcode.com/problems/search-a-2d-matrix-ii/description/)
 
 ```python 
@@ -961,3 +1011,15 @@ class Solution(object):
         return generate(range(1,n+1))
 ```
 Example of how to take cartesian product of two lists (`left_set` and `right_set`)
+
+## Heap
+
+### [215. Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/description/)
+
+```python
+class Solution(object):
+
+    def findKthLargest(self, nums, k):
+        return heapq.nlargest(k, nums)[k-1]
+```
+Use `heapq`

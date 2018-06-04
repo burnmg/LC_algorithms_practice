@@ -806,6 +806,36 @@ Rule out ineligible rows and columns
 
 ## String
 
+### [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/description/)
+
+```python
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        if len(s) == 0:
+            return len(s)
+
+        slow,fast = 0,0
+        _hash = {}
+        max_len = 1
+        while fast < len(s):
+            if s[fast] in _hash and slow <= _hash[s[fast]]:
+                slow = _hash[s[fast]] + 1
+            else:
+                max_len = max(max_len, fast - slow + 1)
+            _hash[s[fast]] = fast
+            fast += 1
+  
+        return max_len
+```
+`_hash` maps from character to its index. `slow` then uses index of previous repeated character to jump.  
+
+Template: This jumping with index is a template
+
+
 ### [557. Reverse Words in a String III](https://leetcode.com/problems/reverse-words-in-a-string-iii/description/)
 
 ```python 

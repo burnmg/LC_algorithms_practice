@@ -857,6 +857,23 @@ Rule out ineligible rows and columns
 
 ## String
 
+### [8. String to Integer (atoi)](https://leetcode.com/problems/string-to-integer-atoi/description/)
+
+```python 
+    
+    def myAtoi(self, str):
+        str = str.strip()
+
+        res = re.findall('^[\-\+0]?[0-9]+', str) # know how to use this function. 
+
+        res = int(res[0]) if len(res) > 0 else 0
+        if res > 2147483647: return 2147483647
+        elif res < -2147483647: return -2147483648
+            
+        return res
+```
+Note this Regular Expression findall. 
+
 ### [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/description/)
 
 ```python

@@ -95,6 +95,42 @@ We firstly satisfy the condition of k different differences. Then we append rest
 
 ## Two Pointer
 
+### [15. 3Sum](https://leetcode.com/problems/3sum/description/)
+```python
+class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        nums.sort()
+        res = []
+        for i in range(len(nums)-2):
+            if i > 0 and nums[i] == nums[i-1]: # handle duplicate 
+                continue
+            l,r = i+1,len(nums)-1
+            while l< r :
+                s = nums[i] + nums[l] + nums[r]
+                if s == 0:
+                    while l< r and nums[l] == nums[l+1]: # handle duplicate 
+                        l +=1
+                    while l< r and nums[r] == nums[r-1]: # handle duplicate 
+                        r -= 1
+                    res.append([nums[i] , nums[l] , nums[r]]) 
+                    r -= 1
+                    l += 1
+                elif s < 0:
+                    l += 1
+                else:
+                    r -= 1
+                
+        return res
+
+            
+```
+See how to handle the duplicate case. 
+
+
 ### [18. 4Sum](https://leetcode.com/problems/4sum/description/)
 
 ```python 

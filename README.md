@@ -95,6 +95,34 @@ We firstly satisfy the condition of k different differences. Then we append rest
 
 ## Two Pointer
 
+### [11. Container With Most Water](https://leetcode.com/problems/container-with-most-water/description/)
+
+```python 
+class Solution(object):
+    def maxArea(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        a, b = 0, len(height) - 1
+        
+        water = 0
+        while a<b:
+            water = max(water, min(height[a], height[b]) * (b-a))
+            if height[a] < height[b]:
+                a += 1
+            else:
+                b -= 1
+        
+        return water
+
+```
+Good question. 
+
+For each step, we remove the shorted wall. 
+
+Given two walls `a` and `b`. If the are walls 'c' and 'd' between `a` and `b` (inclusive), then `c` and `d` will be reached by the algorithm. This can be proved by induction. 
+
 ### [15. 3Sum](https://leetcode.com/problems/3sum/description/)
 ```python
 class Solution(object):
@@ -616,6 +644,32 @@ Trick: lower ith is likely to contain "beautiful" value, so we run backwards so 
 
 
 ## Math
+
+### [9. Palindrome Number](https://leetcode.com/problems/palindrome-number/description/)
+
+```python 
+    def isPalindrome3(self, x): # Fastest one 
+        if x < 0:
+            return False
+
+        ranger = 1
+        while x / ranger >= 10:
+            ranger *= 10
+
+        while x:
+            left = x / ranger
+            right = x % 10
+            if left != right:
+                return False
+            
+            x = (x % ranger) / 10
+            ranger /= 100
+
+        return True
+```
+If the input is 1221. Next step it is 22 (we peeled the head the tail by math calculations). 
+
+
 ### [628. Maximum Product of Three Numbers](https://leetcode.com/problems/maximum-product-of-three-numbers/description/)
 
 ```python

@@ -947,6 +947,27 @@ Rule out ineligible rows and columns
 
 ## String
 
+### [14. Longest Common Prefix]()
+
+```python
+    def longestCommonPrefix(self, strs): # better answer
+        common = ''
+        for x in zip(*strs):
+            _set = set(x)
+            if len(_set) == 1:
+                common += _set.pop()
+            if len(common) == 0: return common
+        return common
+```
+Usage of `zip(*strs)'. 
+
+Example:
+
+input: ["flower","flow","flight"] 
+
+output: [('f', 'f', 'f'), ('l', 'l', 'l'), ('o', 'o', 'i'), ('w', 'w', 'g')]
+
+
 ### [8. String to Integer (atoi)](https://leetcode.com/problems/string-to-integer-atoi/description/)
 
 ```python 

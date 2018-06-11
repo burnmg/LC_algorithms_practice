@@ -418,6 +418,98 @@ The idea is based on [this](https://leetcode.com/problems/unique-binary-search-t
 
 ## Backtracking
 
+
+### [79. Word Search](https://leetcode.com/problems/word-search/description/)
+
+```python 
+class Solution(object):   
+    def exist(self, board, word):
+        if not board:
+            return False
+        for i in xrange(len(board)):
+            for j in xrange(len(board[0])):
+                if self.dfs(board, i, j, word):
+                    return True
+        return False
+
+    # check whether can find word, start at (i,j) position    
+    def dfs(self, board, i, j, word):
+        if len(word) == 0: # all the characters are checked
+            return True
+        if i<0 or i>=len(board) or j<0 or j>=len(board[0]) or word[0]!=board[i][j]:
+            return False
+        tmp = board[i][j]  # first character is found, check the remaining part
+        board[i][j] = "#"  # avoid visit agian 
+        # check whether can find "word" along one direction
+        res = self.dfs(board, i+1, j, word[1:]) or self.dfs(board, i-1, j, word[1:]) \
+        or self.dfs(board, i, j+1, word[1:]) or self.dfs(board, i, j-1, word[1:])
+        board[i][j] = tmp
+        return res
+            
+```
+
+### [39. Combination Sum](https://leetcode.com/problems/combination-sum/description/)
+
+```python 
+class Solution(object):
+    def combinationSum(self, candidates, target):
+        candidates.sort() # note this
+        res = []
+        self.backtracking(candidates, 0, target, [], res)
+        return res
+        
+    def backtracking(self, candidates, start, target, result, results):
+        
+        if target < 0:
+            return 
+        elif target == 0:
+            results.append(result)
+            return
+        else:
+            for i in range(start, len(candidates)):
+                self.backtracking(candidates, i, target-candidates[i], result+[candidates[i]], results)
+    
+                    
+                    
+```
+Template for backtracking. 
+
+Remember to draw the search tree on paper when using backtracking.
+
+Sorting the candidate is useful in solving problems. 
+
+### [40. Combination Sum II](https://leetcode.com/problems/combination-sum-ii/description/)
+
+```python 
+class Solution(object):
+    def combinationSum2(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        res = []
+        candidates.sort()
+        self.backtrack(candidates, target, 0, [], res)
+        return res
+    
+    def backtrack(self, nums, target, start, result, results):
+        
+        if target == 0:
+            results.append(result)
+        
+        for i in range(start, len(nums)):
+            
+            if i > start and nums[i-1] == nums[i]:
+                continue
+            
+            if nums[i] > target: # cut the search space
+                return
+            
+            self.helper(nums, target-nums[i], i + 1, result + [nums[i]], results)
+```
+We can cut the search space in backtracking
+
 ### [17. Letter Combinations of a Phone Number](https://leetcode.com/problems/letter-combinations-of-a-phone-number/description/)
 
 ```python

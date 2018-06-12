@@ -3,6 +3,26 @@ A repo for Ruolin's LC practice
 
 ## Array
 
+### [48. Rotate Image](https://leetcode.com/problems/rotate-image/description/)
+
+```python
+class Solution(object):
+    def rotate(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: void Do not return anything, modify matrix in-place instead.
+        """
+        def rec_rotate(matrix, start, end):
+            if start >= end:
+                return
+            for i in range(start, end):
+                
+                 matrix[i][end], matrix[end][end-i+start], matrix[end-i+start][start], matrix[start][i] = matrix[start][i], matrix[i][end], matrix[end][end-i+start], matrix[end-i+start][start]
+            rec_rotate(matrix, start+1, end-1)
+                
+        rec_rotate(matrix, 0, len(matrix) - 1)
+```
+
 ### [152. Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray/description/)
 ```python
 class Solution(object):
@@ -1038,6 +1058,22 @@ Divide and Conquer example.
 Rule out ineligible rows and columns
 
 ## String
+
+### [38. Count and Say](https://leetcode.com/problems/count-and-say/description/)
+
+```python
+    def countAndSay(self, n):
+        
+        s = '1'
+        for x in range(n-1):
+            new_s = []
+            for k, g in itertools.groupby(s):
+                new_s.append(str(len(list(g))))
+                new_s.append(k)
+            s = "".join(new_s)
+        return s
+```
+Groupby
 
 ### [14. Longest Common Prefix]()
 

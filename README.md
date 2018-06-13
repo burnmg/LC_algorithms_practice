@@ -978,6 +978,50 @@ Template for reversing linked lists.
 
 ## Binary Search
 
+
+### [34. Search for a Range](https://leetcode.com/problems/search-for-a-range/description/)
+
+```python
+def searchRange(self, nums, target):
+    
+    if len(nums) == 0:
+        return [-1, -1]
+    def findLeftBound(nums, target):
+        
+        a,b = 0,len(nums)
+        
+        while a<b:
+            m = (a + b) // 2
+            if nums[m] >= target:
+                b = m
+            else:
+                a = m + 1
+        
+        if a >= 0 and a < len(nums) and nums[a] == target:
+            return a
+        else:
+            return -1
+
+    def findRightBound(nums, target):
+        
+        a,b = 0, len(nums)
+        
+        while a<b:
+            m = (a+b) // 2
+            if nums[m] > target:
+                b = m
+            else:
+                a = m + 1
+        
+        return a
+    
+    left = findLeftBound(nums, target)
+    if left != -1:
+        return [left, left + findRightBound(nums[left:], target)-1]
+    else:
+        return [-1, -1]
+```
+
 ### [35. Search Insert Position](https://leetcode.com/problems/search-insert-position/description/)
 
 ```python
@@ -988,13 +1032,13 @@ class Solution(object):
         :type target: int
         :rtype: int
         """
-        a,b = 0, len(nums) - 1
+        a,b = 0, len(nums) 
         while a<=b:
             m = (a + b) // 2
             if nums[m] == target:
                 return m
             elif nums[m] > target:
-                b = m-1
+                b = m
             else:
                 a = m+1
         

@@ -458,8 +458,8 @@ class Solution(object):
         return prev_res
             
 ```
-This 
-
+I found this DP solution by self. Well done to me, but I missed many special cases such as '30' '20' '120' '130'. 
+ 
 ### [96. Unique Binary Search Trees](https://leetcode.com/problems/unique-binary-search-trees/description/)
 
 ```python

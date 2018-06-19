@@ -1328,6 +1328,32 @@ It is also normal to see that we use alphabet to search and check chars in strin
 
 ## Tree
 
+
+### [106. Construct Binary Tree from Inorder and Postorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/description/)
+
+
+```python
+class Solution(object):
+    def buildTree(self, inorder, postorder):
+        """
+        :type inorder: List[int]
+        :type postorder: List[int]
+        :rtype: TreeNode
+        """
+        if not postorder or not inorder:
+            return None
+    
+        root = TreeNode(postorder.pop())
+        inorder_index = inorder.index(root.val)
+        
+        root.right = self.buildTree(inorder[inorder_index+1:], postorder) # We don't need to slice the postorder. This saves time
+        root.left = self.buildTree(inorder[:inorder_index], postorder)
+        
+        
+        return root
+```
+We don't need to slice the postorder. This saves time
+
 ### [652. Find Duplicate Subtrees](https://leetcode.com/problems/find-duplicate-subtrees/description/)
 ```python 
 # Definition for a binary tree node.

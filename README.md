@@ -1635,3 +1635,58 @@ class Solution(object):
 The minimum height tree is the centre of the graph, which is the center of the longest path in the tree.
 
 THe solution is to gradually remove the leaves until hit the center. 
+
+
+### [207. Course Schedule](https://leetcode.com/problems/course-schedule/description/)
+
+```python
+class Solution(object):
+    def canFinish(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: bool
+        """
+    
+        graph = [[] for _ in xrange(numCourses)] 
+        visited = [0 for _ in xrange(numCourses)] # record visits
+        
+        for x,y in prerequisites:
+            graph[x].append(y)
+        
+        def dfs(i, visited):
+            if visited[i] == -1: # when this node has not been traced back
+                return False
+            if visited[i] == 1: # when this node has been traced back
+                return True
+            
+            visited[i] = -1
+            for out in graph[i]:
+                if not dfs(out, visited):
+                    return False
+            visited[i] = 1
+            return True
+        
+        for i in xrange(numCourses):
+            if not dfs(i, visited):
+                return False
+        
+        return True
+            
+            
+            
+```
+Template.
+
+This is a very important and good question. 
+
+The idea is to find a cycle in the directed graph. 
+
+Remember how do we use an array of numbers to record node visit. There are three states for each node (unvisited: 0, visiting: -1, visited: 1). In DFS, the difference between visited and visiting is whether we have "traced back". 
+
+
+
+
+
+
+

@@ -1584,3 +1584,54 @@ class Solution(object):
 ```
 Two way of depth first search.
 The depth frist search might not be graphically comprehensible. It can also be applied with abstract rules (like friendship in this case)
+
+
+## Graph
+
+### [310. Minimum Height Trees](https://leetcode.com/problems/minimum-height-trees/description/)
+
+```python
+class Solution(object):
+    def findMinHeightTrees(self, n, edges):
+        """
+        :type n: int
+        :type edges: List[List[int]]
+        :rtype: List[int]
+        """
+        if n == 1:
+            return [0]
+        neighbours = collections.defaultdict(list)
+        degrees = collections.defaultdict(int) # we will use degree to identify the leaf. Leaf with have degree = 1. 
+        for u,v in edges:
+            neighbours[u].append(v)
+            neighbours[v].append(u)
+            degrees[u] += 1 
+            degrees[v] += 1
+        
+        # find leaves
+        prelevel = []
+        for u in degrees:
+            if degrees[u] == 1:
+                prelevel.append(u)
+        
+        visited = set(prelevel)
+        i = 0
+        while len(visited) < n:
+            thislevel = []
+            for u in prelevel:
+                for nei in neighbours[u]:
+                    if nei not in visited:
+                        degrees[nei] -= 1
+                        if degrees[nei] == 1:
+                            thislevel.append(nei)
+                            visited.add(nei)
+            prelevel = thislevel
+            i += 1
+        
+        return prelevel
+                
+```
+
+The minimum height tree is the centre of the graph, which is the center of the longest path in the tree.
+
+THe solution is to gradually remove the leaves until hit the center. 

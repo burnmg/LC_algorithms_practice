@@ -827,6 +827,45 @@ Trick: lower ith is likely to contain "beautiful" value, so we run backwards so 
 ```
 If the input is 1221. Next step it is 22 (we peeled the head the tail by math calculations). 
 
+### [67. Add Binary](https://leetcode.com/problems/add-binary/description/)
+
+```python
+class Solution(object):
+    def addBinary(self, a, b):
+        """
+        :type a: str
+        :type b: str
+        :rtype: str
+        """
+        
+        if len(a) > len(b):
+            b = '0' * (len(a) - len(b)) + b
+        elif len (a) < len(b):
+            a = '0' * (len(b) - len(a)) + a
+        
+        return self.recur(a,b, '0')
+            
+        
+    def recur(self, a, b, carry):
+        
+        if len(a) == 0:
+            if carry == '1': # remember to add the last carry 
+                return '1'
+            else:
+                return ''
+        
+        if a[-1] == '0' and b[-1] == '0':
+            return self.recur(a[:-1], b[:-1], '0') + carry
+        elif a[-1] == '1' and b[-1] == '1':
+            return self.recur(a[:-1], b[:-1], '1') + carry
+        else:
+            if carry =='1':
+                return self.recur(a[:-1], b[:-1], '1') + '0'
+            else:
+                return self.recur(a[:-1], b[:-1], '0') + '1' 
+        
+```
+Use recursion to compute binary addition.
 
 ### [628. Maximum Product of Three Numbers](https://leetcode.com/problems/maximum-product-of-three-numbers/description/)
 
@@ -1328,6 +1367,59 @@ It is also normal to see that we use alphabet to search and check chars in strin
 
 ## Tree
 
+### [236. Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/description/)
+
+```python
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def lowestCommonAncestor(self, root, p, q):
+        
+        if not root:
+            return None 
+        
+        if root.val == p.val or root.val == q.val:
+            return root
+        
+        a = self.lowestCommonAncestor(root.left, p, q)
+        b = self.lowestCommonAncestor(root.right, p, q)
+        if a and b:
+            return root
+        elif a:
+            return a
+        else:
+            return b
+        
+        
+
+```
+If both p and q are in left, then the LCA is in left.
+
+If p and q are split in left and right, then this node is the LCT.
+
+
+### [235. Lowest Common Ancestor of a Binary Search Tree]()
+
+```python
+    
+    def lowestCommonAncestor(self, root, p, q):
+        
+        while root:
+            if p.val < root.val > q.val:
+                root = root.left
+            elif p.val > root.val < q.val:
+                root = root.right
+            else:
+                return root
+        
+```
+Use the property of the binary search tree. If a's value is between c and d, then a must be the lowest common ancester of c and d. 
+
 
 ### [106. Construct Binary Tree from Inorder and Postorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/description/)
 
@@ -1686,6 +1778,43 @@ Remember how do we use an array of numbers to record node visit. There are three
 
 
 
+### [210. Course Schedule II](https://leetcode.com/problems/course-schedule-ii/description/)
+
+```python
+class Solution(object):
+    def findOrder(self, numCourses, prerequisites):
+        
+        in_degrees = [0 for _ in xrange(numCourses)]
+        neighbours = [[] for _ in xrange(numCourses)]
+        
+        for x,y in prerequisites:
+            neighbours[y].append(x)
+            in_degrees[x] += 1 # courses without prerequisite are those with in-degrees as 0. 
+        
+        zero_in_degree_nodes = [] # This contains without prerequisite  
+        
+        for i, in_degree in enumerate(in_degrees):
+            if in_degree == 0:
+                zero_in_degree_nodes.append(i)
+        
+        res = []
+        count = 0 
+        while zero_in_degree_nodes: 
+            x = zero_in_degree_nodes.pop()
+            res.append(x)
+            
+            for neighbour in neighbours[x]:
+                in_degrees[neighbour] -= 1
+                if in_degrees[neighbour] == 0:
+                    zero_in_degree_nodes.append(neighbour)
+            count += 1 # count the number of steps
+            
+        if count == numCourses: # if count of 'removing' if less than the total number of nodes, then there must be a cycle. 
+            return res
+        else: # we return [] when there is a cycle. 
+            return []
+```
+Gradually remove courses with 'in-degree=0' until all coursea are removed. 
 
 
 

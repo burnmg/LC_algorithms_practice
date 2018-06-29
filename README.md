@@ -363,6 +363,22 @@ class Solution(object):
 ```
 ## Dynamic Programming
 
+
+### [132. Palindrome Partitioning II](https://leetcode.com/problems/palindrome-partitioning-ii/description/)
+
+```python
+def minCut(self, s):
+    cut = [x for x in range(-1,len(s))]
+    for i in range(0,len(s)):
+        for j in range(i,len(s)):
+            if s[i:j] == s[j:i:-1]:
+                cut[j+1] = min(cut[j+1],cut[i]+1)
+    return cut[-1]
+```
+Example of O(n^2) dynamic programming. 
+
+Hard problem. 
+
 ### [5. Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/description/)
 
 ```python
@@ -483,6 +499,32 @@ The idea is based on [this](https://leetcode.com/problems/unique-binary-search-t
 
 
 ## Backtracking
+
+### [131. Palindrome Partitioning](https://leetcode.com/problems/palindrome-partitioning/description/)
+
+```python
+class Solution(object):
+    def partition(self, s):
+        """
+        :type s: str
+        :rtype: List[List[str]]
+        """
+        results = []
+        self.backtrack(s, [], results)
+        return results
+    
+    def backtrack(self, s, result, results):
+
+        if not s:
+            results.append(result)
+            return
+        for i in range(1, len(s)+1): # pay attention to this len(s)+1. Because we want [:len(s)], so len(s)+1 should be the second parameter of `range`. 
+            if s[:i]== s[:i][::-1]:
+                self.backtrack(s[i:], result + [s[:i]], results)
+        
+        
+```
+In each recursion step, check whether the prefix is a palindrome. If yes, continue to find palindrome in the tail. If not, don't need to search. 
 
 
 ### [79. Word Search](https://leetcode.com/problems/word-search/description/)

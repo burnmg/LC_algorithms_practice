@@ -504,6 +504,52 @@ The idea is based on [this](https://leetcode.com/problems/unique-binary-search-t
 
 ## Backtracking
 
+### [37. Sudoku Solver](https://leetcode.com/problems/sudoku-solver/description/)
+
+```python
+class Solution(object):
+    def solveSudoku(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: void Do not return anything, modify board in-place instead.
+        """
+        
+        solution = None
+        self.backtrack(board, collections.defaultdict(set),collections.defaultdict(set),collections.defaultdict(set))
+        return solution
+    
+    def backtrack(self, board, square, hor, ver, solution):
+        
+        x = y = -1
+        for i in range(9):
+            for j in range(9):
+                if board[i][j] == '.':
+                    x,y = i,j
+        if x == -1: # not finding any empty space
+            solution = board
+            
+        for num in str(range(1, 10)):
+            corner_x, corner_y = x // 3, y // 3
+            if num not in square[(corner_x,corner_y)] and num not in hor[x] and num not in ver[y]:
+                board[x][y] = num
+                square[(corner_x,corner_y)].add(num)
+                hor[x].add(num)
+                ver[y].add(num)
+                self.backtrack(board, square, hor, ver, solution)
+                if solution:
+                    return
+                
+                board[x][y] = '.'
+                square[(corner_x,corner_y)].remove(num) # backtrack
+                hor[x].remove(num)
+                ver[y].remove(num)
+                
+        return
+        
+```
+My own backtracking solution. 
+
+
 ### [131. Palindrome Partitioning](https://leetcode.com/problems/palindrome-partitioning/description/)
 
 ```python
@@ -1773,6 +1819,50 @@ class Solution(object):
 The minimum height tree is the centre of the graph, which is the center of the longest path in the tree.
 
 THe solution is to gradually remove the leaves until hit the center. 
+
+### [332. Reconstruct Itinerary](https://leetcode.com/problems/reconstruct-itinerary/description/)
+
+```python 
+class Solution(object):
+
+    def findItinerary(self, tickets):
+        """
+        :type tickets: List[List[str]]
+        :rtype: List[str]
+        """
+        tickets_dict = collections.defaultdict(list)
+        for x, y in tickets:
+            tickets_dict[x].append([False, y])  # [is_used, destination]
+        for x in tickets_dict:
+            tickets_dict[x].sort(key=lambda x: x[1])
+
+        results = []
+
+        self.backtrack('JFK', tickets_dict, ['JFK'], results, len(tickets))
+
+        return results[0]
+
+
+    def backtrack(self, start, tickets, result, results, tickets_num):
+
+        if len(result) == tickets_num + 1:
+            results.append(result)
+            return
+
+        for ticket in tickets[start]:
+            if ticket[0]:  # if the ticket has been used
+                continue
+            ticket[0] = True
+            self.backtrack(ticket[1], tickets, result + [ticket[1]], results, tickets_num)
+            if len(results) > 0:
+                return
+
+            ticket[0] = False  # backtrack, reset the ticket
+        return
+
+
+```
+My own backtracking answer. 
 
 
 ### [207. Course Schedule](https://leetcode.com/problems/course-schedule/description/)

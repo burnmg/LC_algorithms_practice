@@ -19,12 +19,12 @@ class Solution(object):
                 return True      
             
             down = (coo[0]+1, coo[1]) 
-            if down[0]-1 < len(s1) and down not in visited and s1[down[0]-1] == s3[down[0] + down[1] -1]: # go rightward on the matrix. Use '-1' converts the matrix coordiante to string's index.
+            if down[0]-1 < len(s1) and down not in visited and s1[down[0]-1] == s3[down[0] + down[1] -1]: # move rightward on the matrix. Use '-1' converts the matrix coordiante to string's index.
                 visited.add(down)
                 stack.append(down)
             
             right = (coo[0], coo[1]+1)
-            if right[1]-1 < len(s2) and right not in visited and s2[right[1]-1] == s3[right[0] + right[1] -1]: # go downward on the matrix 
+            if right[1]-1 < len(s2) and right not in visited and s2[right[1]-1] == s3[right[0] + right[1] -1]: # move downward on the matrix 
                 visited.add(right)
                 stack.append(right)
         

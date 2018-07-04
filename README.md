@@ -407,8 +407,8 @@ In this problem, the basic DP solution is to use a 2D matrix.
 Each entry `M[i,j]` on the matrix is whether the `s3[i+j]` is the interleave of `s1[i]` and `s2[j]`. Note that we add have prefixes 'Empty' `s1`,`s2`,`s3`
 
 DP process: 
-* `M[i+1,j]` is true when `M[i,j]` is `True` and `M[i+1,j] == s1[i+1]' is `True`. (Move downwards on the matrix)
-* `M[i,j+1]` is true when `M[i,j]` is `True` and `M[i,j+1] == s2[i+1]' is `True`. (Move rightwards on the matrix)
+* `M[i+1,j]` is true when `M[i,j]` is `True` and `M[i+1,j] == s1[i+1]` is `True`. (Move downwards on the matrix)
+* `M[i,j+1]` is true when `M[i,j]` is `True` and `M[i,j+1] == s2[i+1]` is `True`. (Move rightwards on the matrix)
 
 My code is optimised as a DFS solution so we don't compute the whole matrix and we don't maintain a matrix in the memoery. We only search for the `True` entries on the matrix. 
 

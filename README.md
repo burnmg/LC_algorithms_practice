@@ -363,6 +363,56 @@ class Solution(object):
 ```
 ## Dynamic Programming
 
+### []()
+
+```python
+class Solution(object):
+    def isInterleave(self, s1, s2, s3):
+        """
+        :type s1: str
+        :type s2: str
+        :type s3: str
+        :rtype: bool
+        """
+        if len(s1) + len(s2) != len(s3):
+            return False
+        
+        stack = [(0,0)]
+        visited = set([(0,0)])
+        
+        while stack:
+            coo = stack.pop() # coordinate
+            
+            if coo[0] == len(s1) and coo[1] == len(s2):
+                return True      
+            
+            down = (coo[0]+1, coo[1]) 
+            if down[0]-1 < len(s1) and down not in visited and s1[down[0]-1] == s3[down[0] + down[1] -1]: # move rightward on the matrix. Use '-1' converts the matrix coordiante to string's index.
+                visited.add(down)
+                stack.append(down)
+            
+            right = (coo[0], coo[1]+1)
+            if right[1]-1 < len(s2) and right not in visited and s2[right[1]-1] == s3[right[0] + right[1] -1]: # move downward on the matrix 
+                visited.add(right)
+                stack.append(right)
+        
+        return False
+```
+Very good problem. Template for Dynamic Programming with a 2D matrix. 
+
+In this problem, the basic DP solution is to use a 2D matrix. 
+
+(Note that we add 'empty' in front of s1, s2, s3)
+
+Each entry `M[i,j]` on the matrix is whether the `s3[i+j]` is the interleave of `s1[i]` and `s2[j]`. Note that we add have prefixes 'Empty' `s1`,`s2`,`s3`
+
+DP process: 
+* `M[i+1,j]` is true when `M[i,j]` is `True` and `M[i+1,j] == s1[i+1]' is `True`. (Move downwards on the matrix)
+* `M[i,j+1]` is true when `M[i,j]` is `True` and `M[i,j+1] == s2[i+1]' is `True`. (Move rightwards on the matrix)
+
+My code is optimised as a DFS solution so we don't compute the whole matrix and we don't maintain a matrix in the memoery. We only search for the `True` entries on the matrix. 
+
+A video demo is [here](https://www.youtube.com/watch?v=ih2OZ9-M3OM). 
 
 ### [132. Palindrome Partitioning II](https://leetcode.com/problems/palindrome-partitioning-ii/description/)
 

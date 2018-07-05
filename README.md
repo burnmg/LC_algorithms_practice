@@ -2004,6 +2004,34 @@ Gradually remove courses with 'in-degree=0' until all coursea are removed.
 
 ## Greedy
 
+### []()
+```python
+class Solution(object):
+    def jump(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        
+        last_max_reach_point, current_max_reach_point = 0, 0
+        step = 0
+        for i in range(len(nums)-1):
+            current_max_reach_point = max(i + nums[i], current_max_reach_point)
+            if i == last_max_reach_point:
+                last_max_reach_point = current_max_reach_point
+                step += 1
+        
+        return step
+            
+            
+        
+```
+
+Hard greedy problem
+
+Strategy: 
+For every point, we find the max possible reach from this point. Later, if we encounter this max possible reach, we increment a step. 
+
 ### [55. Jump Game](https://leetcode.com/problems/jump-game/description/)
 
 ```python

@@ -2002,6 +2002,64 @@ class Solution(object):
 ```
 Gradually remove courses with 'in-degree=0' until all coursea are removed. 
 
+## Greedy
+
+### [55. Jump Game](https://leetcode.com/problems/jump-game/description/)
+
+```python
+class Solution(object):
+    def canJump(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        furthest_destination = 0
+        for i,n in enumerate(nums):
+            
+            if i > furthest_destination:
+                return False
+            furthest_destination = max(furthest_destination, i+n)
+                
+        return True
+```
+Compute the 'furthest_destination' on each node. 
+
+### [659. Split Array into Consecutive Subsequences](https://leetcode.com/problems/split-array-into-consecutive-subsequences/description/)
+
+```python
+class Solution(object):
+    def isPossible(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+
+        left = collections.Counter(nums) # record how many 'i' do we left in nums. 
+        end = collections.Counter() # end[i] is the count of consecutive sequences ending at i. 
+        
+        for i in nums:
+            if not left[i]:
+                continue
+            
+            left[i] -= 1
+            
+            if end[i-1]:
+                end[i-1] -= 1
+                end[i] += 1
+            elif left[i+1] and left[i+2]:
+                left[i+1] -= 1
+                left[i+2] -= 1
+                
+                end[i+2] += 1
+            else:
+                return False
+            
+        return True
+                
+        
+```
+Idea: we build the longest consecutive with length greater 3 by using numbers of `nums`. If we cannot build anymore, we return False.
+
 
 
 

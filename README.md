@@ -2030,7 +2030,7 @@ class Solution(object):
 Hard greedy problem
 
 Strategy: 
-For every point, we find the max possible reach from this point. Later, if we encounter this max possible reach, we increment a step. 
+For every position `i`, we find the max possible reach before and including `i` . Later, if we encounter this max possible reach, we increment a step. Then we have a new max possible reach. 
 
 ### [55. Jump Game](https://leetcode.com/problems/jump-game/description/)
 

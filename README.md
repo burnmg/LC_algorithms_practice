@@ -290,6 +290,42 @@ Remember of usage of `collections.Counter`
 
 The idea is to use hashtable and count all possible sum (a+b)values of AB elements, and then find all negative sums (-c-d) of CD that equal to the hashed sum of AB. For each time we find a match `AB[-c-d]`, we add the value of `AB[-c-d]` to our returned count. 
 
+### [680. Valid Palindrome II](https://leetcode.com/problems/valid-palindrome-ii/description/)
+
+```python
+class Solution(object):
+    def validPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        a,b = 0,len(s) - 1
+        
+        has_one_more_chance = True
+        
+        while a<b:
+            
+            if s[a] != s[b]:
+                return self.isValid(s[a+1:b+1]) or self.isValid(s[a:b]) # run two sub-calls to isValid by removing each sides' ends. 
+            a += 1
+            b -= 1
+        
+        return True
+    
+    def isValid(self, s):
+        a,b = 0,len(s) - 1
+        
+        while a<b:
+            
+            if s[a] != s[b]:
+                return False
+            a += 1
+            b -= 1
+        
+        return True        
+```
+
+
 ### [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/description/)
 
 ```python
@@ -1008,6 +1044,29 @@ class Solution(object):
         
 ```
 Use recursion to compute binary addition.
+
+### [168. Excel Sheet Column Title](https://leetcode.com/problems/excel-sheet-column-title/description/)
+
+```
+class Solution(object):
+    def convertToTitle(self, n):
+        """
+        :type n: int
+        :rtype: str
+        """
+        
+        res = ''
+        while n > 0:
+            res += chr((n-1) % 26+65)
+            n = (n-1) // 26
+        
+        return res[::-1]
+```
+Idea: strip the unit digit (26-system) iteratively.
+
+Note this `n-1` rather than `n`
+
+
 
 ### [628. Maximum Product of Three Numbers](https://leetcode.com/problems/maximum-product-of-three-numbers/description/)
 

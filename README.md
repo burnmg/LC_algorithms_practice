@@ -3,6 +3,41 @@ A repo for Ruolin's LC practice
 
 ## Array
 
+### [31. Next Permutation](https://leetcode.com/problems/next-permutation/description/)
+
+
+```python
+class Solution(object):
+    def nextPermutation(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        if len(nums) == 1: return
+
+        suffix_head = 0
+        for i in range(len(nums) - 1, 0, -1):
+            if nums[i - 1] < nums[i]:
+                suffix_head = i
+                for j in range(len(nums) - 1, suffix_head - 1, -1):
+                    if nums[suffix_head - 1] < nums[j]:
+                        temp = nums[suffix_head - 1]
+                        nums[suffix_head - 1] = nums[j]
+                        nums[j] = temp
+                        break
+                break
+        
+        # reverse suffix
+        start,end = suffix_head, len(nums) - 1
+        while start < end:
+            temp = nums[start]
+            nums[start] = nums[end]
+            nums[end] = temp
+            end -= 1
+            start += 1
+    
+```
+
 ### [48. Rotate Image](https://leetcode.com/problems/rotate-image/description/)
 
 ```python
@@ -980,6 +1015,33 @@ Trick: lower ith is likely to contain "beautiful" value, so we run backwards so 
 
 
 ## Math
+
+### [60. Permutation Sequence](https://leetcode.com/problems/permutation-sequence/description/)
+
+```python
+class Solution(object):
+    def getPermutation(self, n, k):
+        """
+        :type n: int
+        :type k: int
+        :rtype: str
+        """
+        
+        return self.permutation(range(1, n+1), k, math.factorial(n))
+        
+    def permutation(self, nums, k, factorial):
+        
+        if len(nums) == 1:
+            return str(nums[0])
+        start_digit = (k-1) // (factorial / len(nums))
+        
+        return str(nums[start_digit]) + self.permutation(nums[:start_digit] + nums[start_digit+1:],
+                                                         1 + (k-1) % (factorial / len(nums)), 
+                                                        factorial / len(nums))
+        
+        
+```
+This is my own solution. Compute the start digit and do recursion.
 
 ### [172. Factorial Trailing Zeroes](https://leetcode.com/problems/factorial-trailing-zeroes/description/)
 

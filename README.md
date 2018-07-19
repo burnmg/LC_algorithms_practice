@@ -38,6 +38,8 @@ class Solution(object):
     
 ```
 
+[Explanation](https://leetcode.com/problems/next-permutation/discuss/13866/Share-my-O(n)-time-solution)
+
 ### [48. Rotate Image](https://leetcode.com/problems/rotate-image/description/)
 
 ```python

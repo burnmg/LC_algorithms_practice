@@ -673,6 +673,36 @@ class Solution(object):
 My own backtracking solution. 
 
 
+### [216. Combination Sum III](https://leetcode.com/problems/combination-sum-iii/description/)
+
+```python
+class Solution(object):
+    def combinationSum3(self, k, n):
+        """
+        :type k: int
+        :type n: int
+        :rtype: List[List[int]]
+        """
+        res = []
+        self.backtracking(k, n, 1, [], res)
+            
+        return res
+    
+    def backtracking(self, k, n, start, result, results):
+    
+        if len(result) == k:
+            if n == 0:
+                results.append(result)
+            return
+        
+        for x in range(start, 10):
+            if n >= x:
+                self.backtracking(k, n-x, x+1, result + [x], results)
+            else:
+                break
+```
+Not a hard problem, but I spent too long on it. I need to review it in the future. 
+
 ### [131. Palindrome Partitioning](https://leetcode.com/problems/palindrome-partitioning/description/)
 
 ```python
@@ -737,6 +767,8 @@ class Solution(object):
 
 ```
 Idea: If `S[i-1] == S[i]`, we only add S[i] to the newly created items from last step to create the new items, but not all items so far.  
+
+Trick: returning two values. The first value count the number of newly created items for the current step. 
 
 
 ### [79. Word Search](https://leetcode.com/problems/word-search/description/)

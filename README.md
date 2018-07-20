@@ -699,6 +699,45 @@ class Solution(object):
 ```
 In each recursion step, check whether the prefix is a palindrome. If yes, continue to find palindrome in the tail. If not, don't need to search. 
 
+### [90. Subsets II](https://leetcode.com/problems/subsets-ii/description/)
+
+```python
+class Solution(object):
+    def subsetsWithDup(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        nums.sort()
+        _, res = self.rec(nums)
+        return res
+        
+    def rec(self, nums):
+        
+        if len(nums) == 0:
+            return 0, [[]]
+        
+        res = []
+        new_items_count_from_last_step, tail = self.rec(nums[1:])
+        
+        if len(nums) >= 2 and nums[0] == nums[1]:
+            count = 0
+            for i in range(new_items_count_from_last_step):
+                count += 1
+                res.append([nums[0]] + tail[i])
+
+            return count, res + tail
+        else:
+            count = 0
+            for x in tail:
+                count += 1
+                res.append([nums[0]] + x)
+            return count, res + tail
+            
+
+```
+Idea: If `S[i-1] == S[i]`, we only add S[i] to the newly created items from last step to create the new items, but not all items so far.  
+
 
 ### [79. Word Search](https://leetcode.com/problems/word-search/description/)
 

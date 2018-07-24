@@ -12,14 +12,14 @@ class Solution(object):
     
     def backtracking(self, k, n, start, result, results):
     
-        if len(result) == k:
+        if k == 0:
             if n == 0:
                 results.append(result)
             return
         
         for x in range(start, 10):
             if n >= x:
-                self.backtracking(k, n-x, x+1, result + [x], results)
+                self.backtracking(k-1, n-x, x+1, result + [x], results)
             else:
                 break
     

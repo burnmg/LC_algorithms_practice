@@ -690,18 +690,20 @@ class Solution(object):
     
     def backtracking(self, k, n, start, result, results):
     
-        if len(result) == k:
+        if k == 0:
             if n == 0:
                 results.append(result)
             return
         
         for x in range(start, 10):
             if n >= x:
-                self.backtracking(k, n-x, x+1, result + [x], results)
+                self.backtracking(k-1, n-x, x+1, result + [x], results) # pay attention to "k-1" and "n-x". This is how we reduce the problem. 
             else:
                 break
 ```
 Not a hard problem, but I spent too long on it. I need to review it in the future. 
+
+Remeber to use the idea of "problem reduction". We reduce the problem to a smaller problem during backtracking. 
 
 ### [131. Palindrome Partitioning](https://leetcode.com/problems/palindrome-partitioning/description/)
 

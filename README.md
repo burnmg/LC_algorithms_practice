@@ -1,4 +1,46 @@
-# Ruolin's Leetcode Practice NoteBook
+"""
+# Definition for a Node.
+class Node(object):
+    def __init__(self, val, prev, next, child):
+        self.val = val
+        self.prev = prev
+        self.next = next
+        self.child = child
+"""
+class Solution(object):
+    def flatten(self, head):
+        """
+        :type head: Node
+        :rtype: Node
+        """
+        if not head:
+            return None
+        
+        
+        stack = [head]
+        temp_head = Node(0, None, None, None)
+        prev = temp_head
+        
+        while stack:
+            node = stack.pop()
+            if node.next:
+                stack.append(node.next)
+            if node.child:
+                stack.append(node.child)
+            
+            
+            node.next = None
+            node.prev = prev
+            node.child = None
+            
+            prev.next = node
+            prev = node
+        
+        temp_head.next.prev = None # Make sure the real head does not have a "prev"
+        return temp_head.next
+        
+            
+            # Ruolin's Leetcode Practice NoteBook
 A repo for Ruolin's LC practice
 
 ## Array
@@ -1303,6 +1345,57 @@ class Solution(object):
 
 ### General Rules
 In most cases, use 'while cur' in the loop condition, but if `cur = cur.next.next...` is possible in the loop, use 'while cur and cur.next'
+
+
+### [430. Flatten a Multilevel Doubly Linked List](https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/description/)
+
+```python
+"""
+# Definition for a Node.
+class Node(object):
+    def __init__(self, val, prev, next, child):
+        self.val = val
+        self.prev = prev
+        self.next = next
+        self.child = child
+"""
+class Solution(object):
+    def flatten(self, head):
+        """
+        :type head: Node
+        :rtype: Node
+        """
+        if not head:
+            return None
+        
+        
+        stack = [head]
+        temp_head = Node(0, None, None, None)
+        prev = temp_head
+        
+        while stack:
+            node = stack.pop()
+            if node.next:
+                stack.append(node.next) # we want to search for 'next' later, so we push it into stack earlier. 
+            if node.child:
+                stack.append(node.child)
+            
+            
+            node.next = None 
+            node.prev = prev
+            node.child = None
+            
+            prev.next = node
+            prev = node
+        
+        temp_head.next.prev = None # Make sure the real head does not have a "prev"
+        return temp_head.next
+        
+            
+            
+```
+Depth-first search. 
+
 
 ### [141. Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/description/)
 ```python 

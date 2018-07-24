@@ -38,6 +38,67 @@ class Solution(object):
     
 ```
 
+### [73. Set Matrix Zeroes](https://leetcode.com/problems/set-matrix-zeroes/description/)
+
+```python
+class Solution(object):
+    def setZeroes(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: void Do not return anything, modify matrix in-place instead.
+        """
+        
+        m = len(matrix)
+        if m == 0:
+            return
+        n = len(matrix[0])
+        if n == 0:
+            return
+        
+
+        zero_top_row = False
+        for j in range(n):
+            if matrix[0][j] == 0:
+                zero_top_row = True
+                break
+                
+        zero_left_col = False 
+        for i in range(m):
+            if matrix[i][0] == 0:
+                zero_left_col = True
+                break
+        
+        for i in range(1, m):
+            for j in range(1, n):
+                if matrix[i][j] == 0:
+                    matrix[i][0] = 0
+                    matrix[0][j] = 0
+        
+        for i in range(1, m):
+            if matrix[i][0] == 0:
+                for j in range(1, n):
+                    matrix[i][j] = 0
+                    
+        for j in range(1, n):
+            if matrix[0][j] == 0:
+                for i in range(1, m):
+                    matrix[i][j] = 0
+        
+        if zero_top_row:
+            for j in range(n):
+                matrix[0][j] = 0
+        
+        if zero_left_col:
+            for i in range(m):
+                matrix[i][0] = 0
+        
+        
+            
+                    
+```
+Trick: Use the first col and first row as a memory to store "zero" columns and rows. This gives us O(1) space complexity. 
+
+
 [Explanation](https://leetcode.com/problems/next-permutation/discuss/13866/Share-my-O(n)-time-solution)
 
 ### [48. Rotate Image](https://leetcode.com/problems/rotate-image/description/)
@@ -2305,3 +2366,17 @@ Idea: we build the longest consecutive with length greater 3 by using numbers of
 
 
 
+## Bit Manipulation
+
+### [136. Single Number](https://leetcode.com/problems/single-number/description/)
+
+```python
+class Solution(object):
+    def singleNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        return reduce(operator.xor, nums)
+```
+Example of XOR.

@@ -1990,7 +1990,7 @@ It is also normal to see that we use alphabet to search and check chars in strin
 ## Tree
 
 
-### [116. Populating Next Right Pointers in Each Node]()
+### [116. Populating Next Right Pointers in Each Node](https://leetcode.com/problems/populating-next-right-pointers-in-each-node/)
 
 ```python 
 
@@ -2024,6 +2024,61 @@ class Solution:
         
 ```
 Treat previous level as a linked list and iterate through this linked list. In each iteration, connect children of nodes in the linked list
+
+
+### [117. Populating Next Right Pointers in Each Node II](https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/description/)
+
+```python
+# Definition for binary tree with next pointer.
+# class TreeLinkNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+#         self.next = None
+
+class Solution:
+    # @param root, a tree link node
+    # @return nothing
+    def connect(self, root):
+        
+        cur = root
+        _next = None
+        prev = None
+        
+        while cur:# level 1
+            
+            if prev:
+                if cur.left and cur.right:
+                    prev.next = cur.left
+                    cur.left.next = cur.right
+                    prev = cur.right
+                elif cur.left:
+                    prev.next = cur.left
+                    prev = prev.next
+                elif cur.right:
+                    prev.next = cur.right
+                    prev = prev.next
+            else:
+                if cur.left and cur.right:
+                    _next = cur.left
+                    cur.left.next = cur.right
+                    prev = cur.right
+                elif cur.left:
+                    _next = cur.left
+                    prev = cur.left
+                elif cur.right:
+                    _next = cur.right
+                    prev = cur.right
+
+            if cur.next:
+                cur = cur.next
+            else:
+                cur = _next
+                _next = None
+                prev = None
+```
+(I forgot the case where a 'cur' has two children.) 
 
 ### [236. Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/description/)
 

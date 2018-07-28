@@ -1989,6 +1989,42 @@ It is also normal to see that we use alphabet to search and check chars in strin
 
 ## Tree
 
+
+### [116. Populating Next Right Pointers in Each Node]()
+
+```python 
+
+# Definition for binary tree with next pointer.
+# class TreeLinkNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+#         self.next = None
+
+class Solution:
+    # @param root, a tree link node
+    # @return nothing
+    def connect(self, root):
+        
+        if not root:
+            return
+        
+        cur = root
+        next = root.left
+        
+        while cur.left:
+            cur.left.next = cur.right
+            if cur.next:
+                cur.right.next = cur.next.left
+                cur = cur.next
+            else:
+                cur = next
+                next = cur.left
+        
+```
+Treat previous level as a linked list and iterate through this linked list. In each iteration, connect children of nodes in the linked list
+
 ### [236. Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/description/)
 
 ```python

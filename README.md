@@ -1759,11 +1759,38 @@ Rule out ineligible rows and columns
                 new_s.append(str(len(list(g))))
                 new_s.append(k)
             s = "".join(new_s)
-        return s
+        return s# Definition for an interval.
+# class Interval(object):
+#     def __init__(self, s=0, e=0):
+#         self.start = s
+#         self.end = e
+
+class Solution(object):
+    def minMeetingRooms(self, intervals):
+        """
+        :type intervals: List[Interval]
+        :rtype: int
+        """
+        if len(intervals) <= 1:
+            return len(intervals)
+        
+        intervals.sort(key = lambda x:x.start)
+        
+        cur_rooms = 1
+        recent_end_time = [intervals[0].end]
+        
+        for i in range(1, len(intervals)):
+            if intervals[i].start >= recent_end_time[0]:
+                heapq.heappushpop(recent_end_time, intervals[i].end)
+            else:
+                cur_rooms += 1
+                heapq.heappush(recent_end_time, intervals[i].end)
+                
+        return cur_rooms
 ```
 Groupby
 
-### [14. Longest Common Prefix]()
+### [14. Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/description/)
 
 ```python
     def longestCommonPrefix(self, strs): # better answer
@@ -2354,6 +2381,41 @@ class Solution(object):
 Example of how to take cartesian product of two lists (`left_set` and `right_set`)
 
 ## Heap
+
+### [253. Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii/description/) (Facebook)
+
+```python
+# Definition for an interval.
+# class Interval(object):
+#     def __init__(self, s=0, e=0):
+#         self.start = s
+#         self.end = e
+
+class Solution(object):
+    def minMeetingRooms(self, intervals):
+        """
+        :type intervals: List[Interval]
+        :rtype: int
+        """
+        if len(intervals) <= 1:
+            return len(intervals)
+        
+        intervals.sort(key = lambda x:x.start)
+        
+        cur_rooms = 1
+        recent_end_time = [intervals[0].end]
+        
+        for i in range(1, len(intervals)):
+            if intervals[i].start >= recent_end_time[0]:
+                heapq.heappushpop(recent_end_time, intervals[i].end)
+            else:
+                cur_rooms += 1
+                heapq.heappush(recent_end_time, intervals[i].end)
+                
+        return cur_rooms
+```
+Use heap to maintain the ending time of happening meetings.
+
 
 ### [215. Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/description/)
 

@@ -1,8 +1,6 @@
-【刷题记录】7/30 2题
-161. One Edit Distance
-253. Meeting Rooms I
-253. Meeting Rooms II
-
+【刷题记录】8/1 2题
+461. Hamming Distance
+477. Total Hamming Distance
 https://github.com/burnmg/LC_algorithms_practice
 
 
@@ -15,5 +13,5 @@ https://github.com/burnmg/LC_algorithms_practice
 
 
 [To-do]
-
+208. Implement Trie (Prefix Tree)
 207. Course Schedule 2

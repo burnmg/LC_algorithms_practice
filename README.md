@@ -2749,12 +2749,7 @@ class Solution(object):
                 step += 1
         
         return step
-            
-            
-        
 ```
-
-
 
 Hard greedy problem
 

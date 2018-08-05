@@ -2709,7 +2709,29 @@ Gradually remove courses with 'in-degree=0' until all coursea are removed.
 
 ## Greedy
 
-### []()
+### [621. Task Scheduler](https://leetcode.com/problems/task-scheduler/description/)
+
+```python
+class Solution(object):
+    def leastInterval(self, tasks, n):
+        """
+        :type tasks: List[str]
+        :type n: int
+        :rtype: int
+        """
+        freqs = collections.Counter(tasks).values()
+        
+        max_freq = max(freqs)
+        num_max_freqs = freqs.count(max_freq)
+        parts = max_freq - 1
+        num_empty_slots = parts * (n - (num_max_freqs - 1))
+        
+        return max(num_empty_slots + num_max_freqs * max_freq,  sum(freqs))
+```
+
+[Explanation](https://leetcode.com/problems/task-scheduler/discuss/104500/Java-O(n)-time-O(1)-space-1-pass-no-sorting-solution-with-detailed-explanation)
+
+### [45. Jump Game II](https://leetcode.com/problems/jump-game-ii/description/)
 ```python
 class Solution(object):
     def jump(self, nums):
@@ -2731,6 +2753,8 @@ class Solution(object):
             
         
 ```
+
+
 
 Hard greedy problem
 

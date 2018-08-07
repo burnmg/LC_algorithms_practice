@@ -2709,6 +2709,25 @@ Gradually remove courses with 'in-degree=0' until all coursea are removed.
 
 ## Greedy
 
+### [406. Queue Reconstruction by Height](https://leetcode.com/problems/queue-reconstruction-by-height/description/)
+
+```python
+class Solution(object):
+    def reconstructQueue(self, people):
+        """
+        :type people: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        people.sort(key=lambda (x,y):(-x, y))
+        
+        res = []
+        for p in people:
+            res.insert(p[1], p)
+        
+        return res
+```
+See [here](https://leetcode.com/problems/queue-reconstruction-by-height/discuss/89345/Easy-concept-with-PythonC++Java-Solution)
+
 ### [621. Task Scheduler](https://leetcode.com/problems/task-scheduler/description/)
 
 ```python

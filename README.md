@@ -2709,6 +2709,45 @@ Gradually remove courses with 'in-degree=0' until all coursea are removed.
 
 ## Greedy
 
+### [763. Partition Labels](https://leetcode.com/problems/partition-labels/description/)
+
+```python
+class Solution(object):
+    def partitionLabels(self, S):
+        """
+        :type S: str
+        :rtype: List[int]
+        """
+        sizes = []
+        
+        while S:
+            
+            i = 1
+            while set(S[:i]) & set(S[i:]):
+                i += 1
+            sizes.append(i)
+            S = S[i:]
+        return sizes
+
+    def partitionLabels(self, S): # solution 2. Much faster
+        d = {c:i for i,c in enumerate(S)}
+        
+        ans = []
+        i = pre = 0
+        while i < len(S):
+            end = d[S[i]]
+            while i <= end:
+                end = max(end, d[S[i]])
+                i += 1
+            ans.append(i-pre)
+            pre = i
+        
+        return ans
+```
+Remember the use of `set` and `&`. 
+
+The second solution records the last index of each characeter. For each element in the string, if this element is before its last appearance, it should be in the current partition. Then we expand the current partition's end with the this element's last appearance's index. When we hit an 'end', we hit the end of the partition. 
+
 ### [406. Queue Reconstruction by Height](https://leetcode.com/problems/queue-reconstruction-by-height/description/)
 
 ```python

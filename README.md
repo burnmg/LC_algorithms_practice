@@ -2709,6 +2709,32 @@ Gradually remove courses with 'in-degree=0' until all coursea are removed.
 
 ## Greedy
 
+
+### [135. Candy](https://leetcode.com/problems/candy/description/)
+
+```python
+class Solution:
+    def candy(self, ratings):
+        """
+        :type ratings: List[int]
+        :rtype: int
+        """
+        res = [1 for i in range(len(ratings))]
+        
+        for i in range(1, len(ratings)):
+            if ratings[i-1] < ratings[i]:
+                res[i] = res[i-1] + 1
+        
+        for i in range(len(ratings) - 2, -1, -1):
+            if ratings[i] > ratings[i+1] and res[i] <= res[i+1]:
+                res[i] = res[i+1] + 1       
+        
+        
+        return sum(res)
+                
+```
+Two-way scan.
+
 ### [763. Partition Labels](https://leetcode.com/problems/partition-labels/description/)
 
 ```python

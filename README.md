@@ -2746,7 +2746,7 @@ class Solution(object):
 ```
 Remember the use of `set` and `&`. 
 
-The second solution records the last index of each characeter. For each element in the string, if this element is before its last appearance, it should be in the current partition. Then we expand the current partition's end with the this element's last appearance's index. When we hit an 'end', we hit the end of the partition. 
+The second solution records the last index of each characeter. For each element in the string, if this element is before its last appearance, it should be in the same partition as its last appearance. Then we expand the current partition's end with the this element's last appearance's index. When we hit an 'end', we hit the end of the partition. 
 
 ### [406. Queue Reconstruction by Height](https://leetcode.com/problems/queue-reconstruction-by-height/description/)
 

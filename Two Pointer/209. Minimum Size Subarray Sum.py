@@ -24,7 +24,7 @@ class Solution:
                     
                 min_len = min(i-tail + 2, min_len)
                 
-        return min_len if _sum >= s else 0x
+        return min_len if _sum >= s else 0
                     
         
         

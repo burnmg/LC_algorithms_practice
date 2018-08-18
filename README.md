@@ -320,6 +320,7 @@ class Solution(object):
 See how to handle the duplicate case. 
 
 
+
 ### [18. 4Sum](https://leetcode.com/problems/4sum/description/)
 
 ```python 
@@ -466,6 +467,18 @@ class Solution(object):
         return True        
 ```
 
+### [283. Move Zeroes](https://leetcode.com/problems/move-zeroes/description/)
+
+```python 
+class Solution(object):
+# in-place
+    def moveZeroes(self, nums):
+        zero = 0  # records the position of "0"
+        for i in xrange(len(nums)):
+            if nums[i] != 0:
+                nums[i], nums[zero] = nums[zero], nums[i]
+                zero += 1
+```
 
 ### [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/description/)
 

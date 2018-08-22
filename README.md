@@ -1,5 +1,5 @@
-This is a test
-"""
+
+"""python
 # Definition for a Node.
 class Node(object):
     def __init__(self, val, prev, next, child):
@@ -16,7 +16,7 @@ class Solution(object):
         """
         if not head:
             return None
-        
+        c
         
         stack = [head]
         temp_head = Node(0, None, None, None)

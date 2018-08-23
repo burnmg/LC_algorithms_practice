@@ -1,47 +1,6 @@
-
-"""python
-# Definition for a Node.
-class Node(object):
-    def __init__(self, val, prev, next, child):
-        self.val = val
-        self.prev = prev
-        self.next = next
-        self.child = child
-"""
-class Solution(object):
-    def flatten(self, head):
-        """
-        :type head: Node
-        :rtype: Node
-        """
-        if not head:
-            return None
-        c
-        
-        stack = [head]
-        temp_head = Node(0, None, None, None)
-        prev = temp_head
-        
-        while stack:
-            node = stack.pop()
-            if node.next:
-                stack.append(node.next)
-            if node.child:
-                stack.append(node.child)
+   
             
-            
-            node.next = None
-            node.prev = prev
-            node.child = None
-            
-            prev.next = node
-            prev = node
-        
-        temp_head.next.prev = None # Make sure the real head does not have a "prev"
-        return temp_head.next
-        
-            
-            # Ruolin's Leetcode Practice NoteBook
+# Ruolin's Leetcode Practice NoteBook
 A repo for Ruolin's LC practice
 
 ## Array
@@ -1459,6 +1418,7 @@ class Solution(object):
 Depth-first search. 
 
 
+
 ### [141. Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/description/)
 ```python 
 # Definition for singly-linked list.
@@ -2489,7 +2449,51 @@ Use `heapq`
 
 ## Depth First Search
 
-### []()
+## [114. Flatten Binary Tree to Linked List](https://leetcode.com/problems/flatten-binary-tree-to-linked-list/description/)
+```python
+# Definition for a Node.
+class Node(object):
+    def __init__(self, val, prev, next, child):
+        self.val = val
+        self.prev = prev
+        self.next = next
+        self.child = child
+
+class Solution(object):
+    def flatten(self, head):
+        """
+        :type head: Node
+        :rtype: Node
+        """
+        if not head:
+            return None
+        c
+        
+        stack = [head]
+        temp_head = Node(0, None, None, None)
+        prev = temp_head
+        
+        while stack:
+            node = stack.pop()
+            if node.next:
+                stack.append(node.next)
+            if node.child:
+                stack.append(node.child)
+            
+            
+            node.next = None
+            node.prev = prev
+            node.child = None
+            
+            prev.next = node
+            prev = node
+        
+        temp_head.next.prev = None # Make sure the real head does not have a "prev"
+        return temp_head.next
+ ```   
+ 
+
+### [547. Friend Circles](https://leetcode.com/problems/friend-circles/description/)
 
 ```python
 

@@ -2491,7 +2491,7 @@ class Solution(object):
         temp_head.next.prev = None # Make sure the real head does not have a "prev"
         return temp_head.next
  ```   
- 
+
 
 ### [547. Friend Circles](https://leetcode.com/problems/friend-circles/description/)
 
@@ -2541,6 +2541,56 @@ class Solution(object):
 Two way of depth first search.
 The depth frist search might not be graphically comprehensible. It can also be applied with abstract rules (like friendship in this case)
 
+
+### [261. Graph Valid Tree](https://leetcode.com/problems/graph-valid-tree/description/)
+
+```python
+class Solution(object):
+    def validTree(self, n, edges):
+        """
+        :type n: int
+        :type edges: List[List[int]]
+        :rtype: bool
+        """
+        if len(edges) == 0:
+            if n == 1:
+                return True
+            else: 
+                return False
+        
+        neighbors = collections.defaultdict(list)
+        
+        for x, y in edges:
+            neighbors[x].append(y)
+            neighbors[y].append(x)
+        
+        visited = [0 for _ in range(n)]
+        stack = [[-1, edges[0][0]]]
+        visited[edges[0][0]] = -1
+        node_count = 0
+        
+        while stack:
+            parent, x = stack.pop()
+            node_count += 1
+
+            no_unvisited_neighbor = True
+            for nei in neighbors[x]:
+                if visited[nei] == 0:
+                    stack.append([x, nei])
+                    visited[nei] = -1
+                    no_unvisited_neighbor = False
+                elif nei != parent and visited[nei] == -1:
+                    return False
+            if no_unvisited_neighbor:
+                visited[x] = 1
+        print(node_count)
+        
+        if node_count < n:
+            return False
+
+        return True
+```
+Use DFS to detect cycle. 
 
 ## Graph
 

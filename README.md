@@ -829,6 +829,34 @@ Not a hard problem, but I spent too long on it. I need to review it in the futur
 
 Remeber to use the idea of "problem reduction". We reduce the problem to a smaller problem during backtracking. 
 
+### [211. Add and Search Word - Data structure design](https://leetcode.com/problems/add-and-search-word-data-structure-design/description/)
+
+```python
+class WordDictionary:
+
+    def __init__(self):
+        self.root = {}
+    
+    def addWord(self, word):
+        node = self.root
+        for char in word:
+            node = node.setdefault(char, {})
+        node[None] = None
+
+    def search(self, word):
+        def find(word, node):
+            if not word:
+                return None in node
+            char, word = word[0], word[1:]
+            if char != '.':
+                return char in node and find(word, node[char])
+            return any(find(word, kid) for kid in node.values() if kid)
+        return find(word, self.root)
+```
+Use prie to store all words. Use recursion for backtracking search.
+
+Remember the usage of `Any()`
+
 ### [131. Palindrome Partitioning](https://leetcode.com/problems/palindrome-partitioning/description/)
 
 ```python

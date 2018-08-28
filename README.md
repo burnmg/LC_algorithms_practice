@@ -703,6 +703,24 @@ The idea is based on [this](https://leetcode.com/problems/unique-binary-search-t
 
 ## Backtracking
 
+### [294. Flip Game II](https://leetcode.com/problems/flip-game-ii/description/)
+
+```python
+class Solution(object):
+    
+    _memo = {}
+    def canWin(self, s):
+        def helper(s):
+            memo = self._memo
+            if s in memo:
+                return memo[s]
+            memo[s] = any(s[i:i+2] == '++' and not self.canWin(s[:i] + '--' + s[i+2:]) for i in range(len(s)))
+            return memo[s]
+        return helper(s)
+```
+On each step, return I can continue and my opponent cannot continue.
+Use memoization to save time by avoiding repeat computation. 
+
 ### [37. Sudoku Solver](https://leetcode.com/problems/sudoku-solver/description/)
 
 ```python
@@ -1287,6 +1305,30 @@ class Solution(object):
         return count
 ```
 Count the number of `5` in the factorial
+
+### [357. Count Numbers with Unique Digits](https://leetcode.com/problems/count-numbers-with-unique-digits/description/)
+
+```python
+class Solution(object):
+    def countNumbersWithUniqueDigits(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        
+        n = 10 if n > 10 else n
+        
+        l = [9, 9, 8, 7, 6 ,5 ,4, 3, 2, 1]
+        
+        pro = 1
+        _sum = 1
+        for i in range(n):
+            pro *= l[i]
+            _sum += pro
+            
+        return _sum
+```
+There are 9 options for the first digit, 9 options for the second digit (including 0), 8 optiopns for the third digit. 
 
 ### [9. Palindrome Number](https://leetcode.com/problems/palindrome-number/description/)
 

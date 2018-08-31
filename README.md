@@ -5,6 +5,79 @@ A repo for Ruolin's LC practice
 
 ## Array
 
+### [243. Shortest Word Distance](https://leetcode.com/problems/shortest-word-distance/description/)
+
+```python
+class Solution(object):
+    def shortestDistance(self, words, word1, word2):
+        """
+        :type words: List[str]
+        :type word1: str
+        :type word2: str
+        :rtype: int
+        """
+        min_dist = len(words)
+        index1, index2 = len(words), len(words)
+        
+        for i in range(len(words)):
+            if words[i] == word1:
+                index1 = i
+                min_dist = min(min_dist, abs(index1-index2))
+            elif words[i] == word2:
+                index2 = i
+                min_dist = min(min_dist, abs(index1-index2))                
+                
+        return min_dist
+    
+```
+### [244. Shortest Word Distance II](https://leetcode.com/problems/shortest-word-distance-ii/description/)
+
+```python
+class WordDistance(object):
+
+    def __init__(self, words):
+        """
+        :type words: List[str]
+        """
+        self.words = words
+        self.memo = {}
+        self.indices = collections.defaultdict(list)
+        for i, x in enumerate(words):
+            self.indices[x].append(i)
+        
+
+
+    def shortest(self, word1, word2):
+        """
+        :type word1: str
+        :type word2: str
+        :rtype: int
+        """
+        min_dist = len(self.words)
+        indices1, indices2 = self.indices[word1], self.indices[word2]
+        i, j = 0, 0
+        while i < len(indices1) and j < len(indices2):
+            min_dist = min(min_dist, abs(indices1[i]-indices2[j]))
+            if indices1[i] < indices2[j]:
+                i += 1
+            else:
+                j += 1
+
+        return min_dist
+        
+
+
+# Your WordDistance object will be instantiated and called as such:
+# obj = WordDistance(words)
+# param_1 = obj.shortest(word1,word2)
+```
+Prestore all indices first. 
+
+The prestored indices are sorted for each word.
+
+Then use two-pointer way to iterate them. On each iteration, we attempt to reduce the distance. 
+
+
 ### [31. Next Permutation](https://leetcode.com/problems/next-permutation/description/)
 
 
@@ -511,6 +584,40 @@ class Solution(object):
         return False
 ```
 ## Dynamic Programming
+
+### [42. Trapping Rain Water][https://leetcode.com/problems/trapping-rain-water/description/]
+
+```python
+class Solution(object):
+    def trap(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        if not height:
+            return 0
+        
+        left_maxs = [height[0]] * len(height)
+        
+        for i in range(1, len(height)):
+            left_maxs[i] = max(left_maxs[i-1], height[i])
+        
+        right_maxs = [height[-1]] * len(height)
+        
+        for i in range(len(height) - 2, -1, -1):
+            right_maxs[i] = max(right_maxs[i+1], height[i])
+        
+        water = 0
+        for i in range(len(height)):
+            water += min(left_maxs[i], right_maxs[i]) - height[i]
+
+        return water
+```
+Scan from left and then to right and stores all max wall heights.  
+
+The shared spaces minus wall spaces are water levels. 
+
+See Solution 2 [here](https://leetcode.com/problems/trapping-rain-water/solution/)
 
 ### [97. Interleaving String](https://leetcode.com/problems/interleaving-string/description/)
 

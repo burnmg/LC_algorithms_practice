@@ -227,12 +227,14 @@ class Solution(object):
         :type rowIndex: int
         :rtype: List[int]
         """
-        res = [1]
+        row = [1]
+        for i in range(rowIndex):
+            line1 = row + [0]
+            line2 = [0] + row
+            zipped = zip(line1, line2)
+            row = map(sum, zipped)
+        return row
         
-        for _ in range(rowIndex):
-            res = [x+y for x,y in zip([0]+res, res+[0])]
-        
-        return res
 ```
 VERY GOOD PROBLEM.
 Use 0 as a padding number for each row.

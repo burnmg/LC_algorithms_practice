@@ -234,7 +234,7 @@ class Solution(object):
             zipped = zip(line1, line2)
             row = map(sum, zipped)
         return row
-        
+
 ```
 VERY GOOD PROBLEM.
 Use 0 as a padding number for each row.
@@ -1768,6 +1768,39 @@ class Solution(object):
 Template for reversing linked lists. 
 
 ## Binary Search
+
+### [287. Find the Duplicate Number](https://leetcode.com/problems/find-the-duplicate-number/description/)
+
+```python
+class Solution(object):
+    def findDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        low = 1
+        high = len(nums)
+        
+        while low < high:
+            mid = (low + high) // 2
+            count = 0
+            for x in nums:
+                if x <= mid:
+                    count += 1
+            if count <= mid:
+                low = mid + 1
+            else:
+                high = mid
+        
+        return low
+```
+Find the `mid`. 
+
+If there is no duplidate number, than the count of numbers that are smaller than or equal to `mid` must be `mid`. But this problem defines that there must be at least one duplicate number
+
+Then, if the count of numbers that are smaller than `mid` is smaller than or equal to `mid`, this duplicate number must be greater than `mid`. Otherwise, it is larger than `mid`. This becomes a search problem. 
+
+We use binary search to reduce the search space
 
 
 ### [34. Search for a Range](https://leetcode.com/problems/search-for-a-range/description/)

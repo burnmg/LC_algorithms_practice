@@ -250,16 +250,13 @@ class Solution(object):
         :rtype: List[int]
         """
         res = [1] * len(nums)
-        p = nums[0]
         for i in range(1, len(nums)):
-            res[i] = p
-            p *= nums[i]
+            res[i] = nums[i - 1] * res[i-1]
         
-        p = nums[-1]
+        prev = nums[-1]
         for i in range(len(nums)-2, -1, -1):
-            res[i]  *= p
-            p *= nums[i]
-                
+            res[i] = res[i] * prev
+            prev *= nums[i]
         return res
 ```
 Calculate products from start to end and then from end to start without considering `n[i]` at `i` position

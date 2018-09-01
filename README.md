@@ -1794,9 +1794,9 @@ class Solution(object):
         
         return low
 ```
-Find the `mid`. 
+Find the `mid` (can be any number between 1 and n inclusive). 
 
-If there is no duplidate number, than the count of numbers that are smaller than or equal to `mid` must be `mid`. But this problem defines that there must be at least one duplicate number
+If there is no duplicate number, than the count of numbers that are smaller than or equal to `mid` must be `mid`. But this problem defines that there must be at least one duplicate number
 
 Then, if the count of numbers that are smaller than `mid` is smaller than or equal to `mid`, this duplicate number must be greater than `mid`. Otherwise, it is larger than `mid`. This becomes a search problem. 
 

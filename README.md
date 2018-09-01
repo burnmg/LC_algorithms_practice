@@ -2029,8 +2029,7 @@ Groupby
             if len(common) == 0: return common
         return common
 ```
-Usage of `zip(*strs)'. 
-
+Usage of `zip(*strs)`. 
 Example:
 
 input: ["flower","flow","flight"] 

@@ -5,6 +5,21 @@ A repo for Ruolin's LC practice
 
 ## Array
 
+### [324. Wiggle Sort II](https://leetcode.com/problems/wiggle-sort-ii/description/)
+
+```python
+class Solution:
+    def wiggleSort(self, nums):
+        nums.sort()
+        half = len(nums[::2])
+        nums[::2], nums[1::2] = nums[:half][::-1], nums[half:][::-1] # Check this pythonic opertation
+``` 
+
+Sort the list first.
+
+Them put first half in odd indices and second half to even indices
+
+
 ### [243. Shortest Word Distance](https://leetcode.com/problems/shortest-word-distance/description/)
 
 ```python

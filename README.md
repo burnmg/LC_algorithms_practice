@@ -1,11 +1,43 @@
    
             
 # Ruolin's Leetcode Practice NoteBook
-A repo for Ruolin's LC practice
+Practice makes perfect.
 
 ## Array
 
+### [229. Majority Element II](https://leetcode.com/problems/majority-element-ii/description/)
+
+```python
+class Solution:
+    def majorityElement(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        candidate1, candidate2, count1, count2 = 0, 1, 0, 0
+        
+        for x in nums: 
+            if x == candidate1:
+                count1 += 1
+            elif x == candidate2:
+                count2 += 1
+            elif count1 == 0:
+                candidate1 = x
+                count1 = 1
+            elif count2 == 0:
+                candidate2 = x
+                count2 = 1
+            else:
+                count1 -= 1
+                count2 -= 1
+        return [x for x in [candidate1, candidate2] if nums.count(x) > len(nums) // 3]
+```
+See [here](https://leetcode.com/problems/majority-element-ii/discuss/63520/Boyer-Moore-Majority-Vote-algorithm-and-my-elaboration). 
+
+Use majority vote method. The original algorithm works for one candidate and count. This is extension to 2 candidates. We only reduce two counts if none of them are matched to `x`. Otherwise, we increment one of them without reducing the count of the other. 
+
 ### [324. Wiggle Sort II](https://leetcode.com/problems/wiggle-sort-ii/description/)
+
 
 ```python
 class Solution:

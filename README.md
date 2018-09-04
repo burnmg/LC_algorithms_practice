@@ -2561,6 +2561,50 @@ See function `build`. It is an O(n) way to build a binary search tree given a st
 
 
 
+### [230. Kth Smallest Element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/description/)
+
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def kthSmallest(self, root, k):
+        """
+        :type root: TreeNode
+        :type k: int
+        :rtype: int
+        """
+        _, res = self.helper(root, k)
+        
+        return res.val
+        
+        
+    def helper(self, root, k):
+        
+        if not root:
+            return 0, None
+        
+        count_left, kthSmallest_node = self.helper(root.left, k)
+        
+        if kthSmallest_node:
+            return -1, kthSmallest_node
+        
+        if count_left == k - 1:
+            return -1, root
+        
+        count_right, kthSmallest_node = self.helper(root.right, k - count_left - 1)
+        if kthSmallest_node:
+            return -1, kthSmallest_node
+        
+        return count_left + count_right + 1, None
+```
+This is my own solution. 
+
+We first search kth smallest element in the left. If we find it, return it and that's it. If we cannot find it, search (k-1-left_nodes_count)th element in the right ("1" denotes the count of the root node). If found, return it and that's it. If we still cannot find it, return the total count of nodes and let the parent continue to do the search. 
 
 ### [144. Binary Tree Preorder Traversal](https://leetcode.com/problems/binary-tree-preorder-traversal/description/)
 

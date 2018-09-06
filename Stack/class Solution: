@@ -1,0 +1,16 @@
+class Solution:
+    def nextGreaterElement(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
+        """
+        stack = []
+        sols = {}
+        
+        for x in nums2:
+            while len(stack) > 0 and stack[-1] < x:
+                sols[stack.pop()] = x
+            stack.append(x)
+        
+        return [sols.get(x, -1) for x in nums1]

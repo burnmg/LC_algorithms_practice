@@ -3383,3 +3383,56 @@ class Solution(object):
         self.memo[_hash] = False
         return False
 ```
+
+## Stack
+
+### [496. Next Greater Element I](https://leetcode.com/problems/next-greater-element-i/description/)
+
+```python 
+class Solution:
+    def nextGreaterElement(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
+        """
+        stack = []
+        sols = {}
+        
+        for x in nums2:
+            while len(stack) > 0 and stack[-1] < x:
+                sols[stack.pop()] = x
+            stack.append(x)
+        
+        return [sols.get(x, -1) for x in nums1]
+```
+Very good stack problem.
+
+Use '[9, 8, 7, 3, 2, 1, 6]' as an input. 
+We insert the top descreasing array into the stack. Then the stack will be `[9, 8, 7, 3, 2, 1]` and we pop all elements that are smaller than `6`. All poped elements `[3,2,1]` are those smaller than `6` and sit on the left of `6`. 
+
+
+### []()
+
+```python
+class Solution:
+    def nextGreaterElements(self, nums):
+        nums = nums
+        stack, res = [], [-1] * len(nums)
+        for i in range(len(nums)):
+            while stack and (nums[stack[-1]] < nums[i]):
+                res[stack.pop()] = nums[i]
+            stack.append(i)
+        
+        for i in range(len(nums)):
+            while stack and (nums[stack[-1]] < nums[i]):
+                res[stack.pop()] = nums[i]
+            stack.append(i)
+            
+        return res
+```
+The input is a circular array. 
+A general idea of handling circular array is to double the input array and do things on it.
+
+A better idea here is to run the algorithm twice so we don't need to copy paste the array. In the second run, our stack will contain from the tail of the input and the algorithm can continue and behave as working in a circular array.
+

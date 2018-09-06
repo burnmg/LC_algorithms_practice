@@ -3412,7 +3412,7 @@ Use '[9, 8, 7, 3, 2, 1, 6]' as an input.
 We insert the top descreasing array into the stack. Then the stack will be `[9, 8, 7, 3, 2, 1]` and we pop all elements that are smaller than `6`. All poped elements `[3,2,1]` are those smaller than `6` and sit on the left of `6`. 
 
 
-### []()
+### [556. Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii/description/)
 
 ```python
 class Solution:

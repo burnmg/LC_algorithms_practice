@@ -631,6 +631,57 @@ class Solution(object):
 ```
 ## Dynamic Programming
 
+### [368. Largest Divisible Subset](https://leetcode.com/problems/largest-divisible-subset/description/)
+
+```python
+class Solution:
+    def largestDivisibleSubset(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        if len(nums) == 0:
+            return []
+        
+        dp = []
+        nums.sort()
+        
+        for n in nums:
+            cur_set = [n]
+            for _set in dp:
+                if n % _set[-1] == 0 and len(_set) + 1 > len(cur_set):
+                    cur_set = _set + [n]
+            
+            dp.append(cur_set)
+        
+        return max(dp, key = lambda x: len(x))
+                    
+```
+
+
+
+### [823. Binary Trees With Factors](https://leetcode.com/problems/binary-trees-with-factors/description/)
+
+```python
+class Solution:
+    def numFactoredBinaryTrees(self, A):
+        """
+        :type A: List[int]
+        :rtype: int
+        """
+        A.sort()
+        dp = {}
+        
+        for i in range(len(A)):
+            dp[A[i]] = 1
+            for j in range(i):
+                if A[i] % A[j] == 0 and A[i] / A[j] in dp:
+                    dp[A[i]] += dp[A[i] / A[j]] * dp[A[j]]
+        
+        return sum(dp.values()) % (10**9 + 7)
+```
+Find a number that is one product of the current number. Then we see if the other number is in our dp list. If yest, simply add the product of their dp values. 
+
 ### [42. Trapping Rain Water][https://leetcode.com/problems/trapping-rain-water/description/]
 
 ```python

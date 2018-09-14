@@ -1,21 +1,17 @@
-class Solution(object):
+class Solution:
     def wordBreak(self, s, wordDict):
         """
         :type s: str
         :type wordDict: List[str]
         :rtype: bool
         """
-        if len(wordDict) == 0:
-            return False
-        word_dict = set(wordDict)
-        truths = [-1]
-
+        dp = [False] * len(s)
+        
         for i in range(len(s)):
-            for j in truths:
-                if s[j+1:i+1] in word_dict:
-                    truths.append(i)
-                    break
-      
-        if len(truths) == 1:
-            return False
-        return truths[-1] == len(s) - 1
+            for w in wordDict:
+                if len(w) <= i + 1 and (dp[i-len(w)] or i-len(w) == -1) and s[i-len(w)+1:i+1] == w:
+                    dp[i] = True
+            
+            
+        return dp[-1]
+        

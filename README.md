@@ -658,6 +658,44 @@ class Solution:
                     
 ```
 
+### [486. Predict the Winner](https://leetcode.com/problems/predict-the-winner/description/)
+
+```python
+class Solution:
+    def PredictTheWinner(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        memo = {}
+    
+        def helper(_sum, nums, start, end):
+            
+            if (start, end) in memo:
+                return memo[(start, end)]
+            
+            if start == end:
+                memo[(start, end)] = nums[start]
+                return nums[start]
+            
+            score1 = _sum - helper(_sum - nums[start], nums, start+1, end) 
+            score2 = _sum - helper(_sum - nums[end], nums, start, end-1)
+            
+            res = max(score1, score2)
+            memo[(start, end)] = res
+            
+            return res
+        
+        return helper(sum(nums), nums, 0, len(nums)-1) * 2 >= sum(nums)
+```
+In each recursive step, we compute two different possible moves: pick first number or last number.
+If we pick the first number, the maximal possible score I can get is the the sum of all numbers subtracting the maximal possible sore the other player can get in `nums[1:]` if he is the first-mover in `nums[1:]`, because we assume each player is aplying the game optimally. 
+
+Similarly, If we pick the last number, the maximal possible score I can get is the the sum of all numbers subtracting the maximal possible sore the other player can get in `nums[:len(nums)-1]` if he is the first-mover in `nums[:len(nums)-1]`.
+
+Above is the naive solution that will exceed time limit. 
+
+My code then uses Memoization by hashing sub-solution for each subarray. With memoization, my algorithm beats 90% of runtimes. 
 
 
 ### [823. Binary Trees With Factors](https://leetcode.com/problems/binary-trees-with-factors/description/)

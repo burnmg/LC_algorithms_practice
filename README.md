@@ -45,11 +45,32 @@ class Solution:
         nums.sort()
         half = len(nums[::2])
         nums[::2], nums[1::2] = nums[:half][::-1], nums[half:][::-1] # Check this pythonic opertation
+
+class Solution: # Easy Version
+    def wiggleSort(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        sorted_nums = sorted(nums)
+        
+        
+        j = 1
+        while j < len(nums):
+            nums[j] = sorted_nums.pop()
+            j += 2        
+        
+        j = 0
+        while j < len(nums):
+            nums[j] = sorted_nums.pop()
+            j += 2
+        
+
 ``` 
 
 Sort the list first.
 
-Them put first half in odd indices and second half to even indices
+Them put first half in odd indices and second half to even indices.
 
 
 ### [243. Shortest Word Distance](https://leetcode.com/problems/shortest-word-distance/description/)
@@ -3193,6 +3214,34 @@ Gradually remove courses with 'in-degree=0' until all coursea are removed.
 
 ## Greedy
 
+### [881. Boats to Save People](https://leetcode.com/problems/boats-to-save-people/description/)
+
+```python
+class Solution:
+    def numRescueBoats(self, people, limit):
+        """
+        :type people: List[int]
+        :type limit: int
+        :rtype: int
+        """
+        people.sort()
+        
+        boat = 0
+        
+        i, j = 0, len(people) - 1
+        
+        while i <= j:
+            if people[i] + people[j] <= limit:
+                i += 1
+                j -= 1
+            else:
+                j -= 1
+            boat += 1
+            
+        return boat                
+```
+Use two pointer and greedy.
+The greedy idea is to try to put a heavy people in a boat with a light people to fill the gap. This will save the space optimally. 
 
 ### [135. Candy](https://leetcode.com/problems/candy/description/)
 

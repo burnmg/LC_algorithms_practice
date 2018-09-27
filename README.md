@@ -3574,3 +3574,38 @@ A general idea of handling circular array is to double the input array and do th
 
 A better idea here is to run the algorithm twice so we don't need to copy paste the array. In the second run, our stack will contain from the tail of the input and the algorithm can continue and behave as working in a circular array.
 
+
+## Linkedin
+
+### [23. Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/description/)
+
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+
+class Solution:
+    def mergeKLists(self, lists):
+        """
+        :type lists: List[ListNode]
+        :rtype: ListNode
+        """
+        h = [(node.val, node) for node in lists if node]
+        heapq.heapify(h)
+        res = cur = ListNode(0)
+        while h: 
+            _, node = h[0]
+            cur.next = node
+            if node.next:
+                heapq.heapreplace(h, (node.next.val, node.next))
+            else:
+                heapq.heappop(h)
+            cur = cur.next
+        
+        return res.next
+                
+```
+Not work in python 3. Use PriorityQueue() instead. 

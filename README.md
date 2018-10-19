@@ -2162,6 +2162,26 @@ Rule out ineligible rows and columns
 
 ## String
 
+### [647. Palindromic Substrings](https://leetcode.com/problems/palindromic-substrings/description/)
+
+```python
+class Solution(object):
+    def countSubstrings(self, s):
+        N = len(s)
+        count = 0
+        for center in range(2*N - 1):
+            left = center // 2
+            right = left + center % 2
+            
+            while left >= 0 and right < N and s[left] == s[right]: # A longer palindrom can only be a palindrom if its inner part is a palindrom. 
+                count += 1
+                left -= 1
+                right += 1
+        
+        return count
+```
+Use the idea: A longer palindrom can only be a palindrom if its inner part is a palindrom. 
+
 ### [38. Count and Say](https://leetcode.com/problems/count-and-say/description/)
 
 ```python
@@ -3213,6 +3233,55 @@ class Solution(object):
 Gradually remove courses with 'in-degree=0' until all coursea are removed. 
 
 ## Greedy
+
+### [253. Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii/description/)
+
+```python
+# Definition for an interval.
+# class Interval(object):
+#     def __init__(self, s=0, e=0):
+#         self.start = s
+#         self.end = e
+
+class Solution(object):
+    def minMeetingRooms(self, intervals):
+        """
+        :type intervals: List[Interval]
+        :rtype: int
+        """
+        if len(intervals) == 0:
+            return 0
+        
+        starts = []
+        ends = []
+        for i in intervals:
+            starts.append(i.start)
+            ends.append(i.end)
+        
+        starts.sort()
+        ends.sort()
+
+        num_rooms = available = 0
+        
+        s = e = 0
+        
+        while s <len(starts):
+            if starts[s] < ends[e]:
+                if available == 0:
+                    num_rooms += 1
+                else:
+                    available -= 1
+                s += 1
+            else:
+                available += 1
+                e += 1
+                
+        
+        return num_rooms
+```
+Sort both starts and ends. 
+Iterate start and end one at a time. 
+Think it in a real-world senario. 
 
 ### [881. Boats to Save People](https://leetcode.com/problems/boats-to-save-people/description/)
 

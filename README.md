@@ -1553,6 +1553,25 @@ Trick: lower ith is likely to contain "beautiful" value, so we run backwards so 
 
 ## Math
 
+### [50. Pow(x, n)](https://leetcode.com/problems/powx-n/description/)
+
+```python
+class Solution(object):
+    def myPow(self, x, n):
+        """
+        :type x: float
+        :type n: int
+        :rtype: float
+        """
+        if n == 0:
+            return 1
+        if n < 0:
+            x = 1/x
+            n = -n
+        
+        return self.myPow(x*x, n/2) if n % 2 == 0 else x * self.myPow(x, n-1)
+```
+
 ### [60. Permutation Sequence](https://leetcode.com/problems/permutation-sequence/description/)
 
 ```python

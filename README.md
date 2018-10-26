@@ -2494,6 +2494,39 @@ It is also normal to see that we use alphabet to search and check chars in strin
 
 ## Tree
 
+### [671. Second Minimum Node In a Binary Tree](https://leetcode.com/problems/second-minimum-node-in-a-binary-tree/description/)
+
+```python
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def findSecondMinimumValue(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if not root or not root.left or not root.right:
+            return -1
+        
+        smallest = root.val
+        res = [float('inf')]
+        def traverse(tree):
+            if smallest < tree.val < res[0]:
+                res[0] = tree.val
+            if tree.left:
+                traverse(tree.left)
+            if tree.right:
+                traverse(tree.right)
+        traverse(root.left)
+        traverse(root.right)
+        return res[0] if res[0] != float('inf') else -1
+```
+Travese each node and get the value that is only greater than the smallest value (root.val). 
 
 ### [116. Populating Next Right Pointers in Each Node](https://leetcode.com/problems/populating-next-right-pointers-in-each-node/)
 

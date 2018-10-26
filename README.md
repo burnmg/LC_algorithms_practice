@@ -3551,6 +3551,40 @@ Example of XOR.
 
 ## Breadth First Search
 
+### [364. Nested List Weight Sum II](https://leetcode.com/problems/nested-list-weight-sum-ii/description/)
+
+```python
+class Solution(object):
+    def depthSumInverse(self, nestedList):
+        """
+        :type nestedList: List[NestedInteger]
+        :rtype: int
+        """
+        cur_level = nestedList
+        _sums = []
+        while cur_level:
+            cur_sum = 0
+            next_level = []
+            for e in cur_level:
+                if e.isInteger():
+                    cur_sum += e.getInteger()
+                else:
+                    next_level.extend(e.getList())
+            
+            _sums.append(cur_sum)
+            cur_level = next_level
+            
+        res = 0
+        fac = 1
+        while _sums:
+            res = res + fac*_sums.pop()
+            fac += 1
+        
+        return res 
+
+```
+Use the stack `_sum` to record the sum of each level and pop them inversely. 
+
 ### [127. Word Ladder](https://leetcode.com/problems/word-ladder/description/)
 
 ```python

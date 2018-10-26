@@ -11,29 +11,38 @@ class Solution(object):
         :type root: TreeNode
         :rtype: bool
         """
-        res, _, _ = self.helper(root)
-        return res
-        
-    def helper(self, root):
-        
         if not root:
-            return True, None, None
+            return True
+        return self.helper(root)[2]
         
-        validate_left = True
-        left_min = None 
+    
+    def helper(self, root):
+        """
+        return min_val, max_val, is_valid
+        """
+        if not root.left and not root.right:
+            return root.val, root.val, True
         
+        l_min, l_max = None, None
+        r_min, r_max = None, None
+        is_valid = True
         if root.left:
-            left_is_val, left_min, left_max = self.helper(root.left)
-            validate_left = left_is_val and root.val > left_max
+            l_min, l_max, l_valid = self.helper(root.left)
+            if l_valid == False:
+                return 0, 0, False
+            is_valid = is_valid and l_max < root.val
+            if not is_valid:
+                return 0, 0, False
+        else:
+            l_min = root.val
         
-        validate_right = True 
-        right_max = None
         if root.right:
-            right_is_val, right_min, right_max = self.helper(root.right)
-            validate_right = right_is_val and root.val < right_min
+            r_min, r_max, r_valid = self.helper(root.right)
+            if r_valid == False:
+                return 0, 0, False
+            is_valid = is_valid and r_min > root.val
+        else:
+            r_max = root.val
         
-        return (validate_left and validate_right), left_min if left_min else root.val, right_max if right_max else root.val
         
-        
-        
-        
+        return l_min, r_max, is_valid

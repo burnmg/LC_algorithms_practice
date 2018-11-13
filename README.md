@@ -652,6 +652,54 @@ class Solution(object):
 ```
 ## Dynamic Programming
 
+### [568. Maximum Vacation Days](https://leetcode.com/problems/maximum-vacation-days/description/)
+```python
+class Solution(object):
+    def maxVacationDays(self, flights, days):
+        """
+        :type flights: List[List[int]]
+        :type days: List[List[int]]
+        :rtype: int
+        """
+        # preprocess the flights
+        for i in range(len(flights)):
+            flights[i][i] = 1
+
+        cur_vocations = [days[i][0] if flights[0][i] != 0 else float('-inf') for i in range(len(days))]
+        longest_voc = max(cur_vocations)
+
+        for i in range(1, len(days[0])):  # for each day
+            new_vocations = []
+            for j in range(len(flights)):  # for each arriving place. j is the new place. k is the previous place
+                new_vocations.append(max(
+                    [days[j][i] + cur_vocations[k] if flights[k][j] == 1 else float('-inf') for k in range(len(flights))]))
+                longest_voc = max(longest_voc, new_vocations[j])
+            cur_vocations = new_vocations
+        return longest_voc
+
+
+```
+
+
+
+### [418. Sentence Screen Fitting](https://leetcode.com/problems/sentence-screen-fitting/description/)
+
+```python
+class Solution(object):
+    def wordsTyping(self, sentence, rows, cols):
+        s = ' '.join(sentence) + ' '
+        count = 0
+        for i in xrange(rows):
+            count += cols
+            if s[count % len(s)] == ' ':
+                count += 1
+            else:
+                while count > 0 and s[ (count - 1) % len(s) ] != ' ':
+                    count -= 1
+        return count/ len(s)
+```
+https://leetcode.com/problems/sentence-screen-fitting/discuss/90869/Python-with-explanation
+
 ### [368. Largest Divisible Subset](https://leetcode.com/problems/largest-divisible-subset/description/)
 
 ```python

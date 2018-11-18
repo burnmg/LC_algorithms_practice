@@ -2202,6 +2202,23 @@ The return value is `a` not `m`.
 
 ## Divide and Conquer
 
+### [932. Beautiful Array](https://leetcode.com/problems/beautiful-array/)
+```python
+class Solution(object):
+    def beautifulArray(self, N):
+        """
+        :type N: int
+        :rtype: List[int]
+        """
+        return self.helper(list(range(1,N+1)))
+        
+    def helper(self, lst):
+        if len(lst)<=2:         
+            return lst
+        return self.helper(lst[::2]) + self.helper(lst[1::2])
+```
+Divide and Conquer by odd and even, not by chunk. This is very innovative.
+
 ### [241. Different Ways to Add Parentheses](https://leetcode.com/problems/different-ways-to-add-parentheses/description/)
 ```python
 class Solution(object):

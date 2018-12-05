@@ -505,6 +505,9 @@ class Solution(object):
 Template. Very good solution 
 Sort the list, then reduce the problem to 2Sum by backtracking. 
 
+
+
+
 ### [27. Remove Element](https://leetcode.com/problems/remove-element/description/)
 ```python
 class Solution(object):
@@ -1116,6 +1119,44 @@ The idea is based on [this](https://leetcode.com/problems/unique-binary-search-t
 
 
 ## Backtracking
+
+### [301. Remove Invalid Parentheses](https://leetcode.com/problems/remove-invalid-parentheses/)
+
+```python
+class Solution(object):
+    def removeInvalidParentheses(self, s):
+        """
+        :type s: str
+        :rtype: List[str]
+        """
+        
+        def bt(s, visited, results):
+            mi = calc(s)
+            if mi == 0:
+                return results.append(s)
+            ans = []
+            for x in range(len(s)):
+                if s[x] in ('(', ')'):
+                    ns = s[:x] + s[x+1:]
+                    if ns not in visited and calc(ns) < mi:
+                        visited.add(ns)
+                        bt(ns, visited, results)
+            return ans
+        
+        def calc(s):
+            a = b = 0
+            for c in s:
+                a += {'(' : 1, ')' : -1}.get(c, 0)
+                b += a < 0
+                a = max(a, 0)
+            return a + b
+
+        visited = set([s])
+        results = []
+        bt(s, visited, results)
+        return results
+```
+
 
 ### [294. Flip Game II](https://leetcode.com/problems/flip-game-ii/description/)
 

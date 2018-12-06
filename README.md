@@ -726,7 +726,7 @@ class Solution(object):
 Google question. 
 This answer is so brilliant.
 
-THe idea is too maintain a `dp`. `dp[i]` tracks the starting positions of subsequence in `S` that matches until `i`th char in `T`. 
+The idea is too maintain a `dp`. `dp[i]` tracks the starting positions of subsequence in `S` that matches until `i`th char in `T`. 
 
 ### [568. Maximum Vacation Days](https://leetcode.com/problems/maximum-vacation-days/description/)
 ```python
@@ -4051,25 +4051,93 @@ Not work in python 3. Use PriorityQueue() instead.
 
 ### [76. Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/description/) 
 ```python
-class Solution(object):
+import collections
 
+
+class Solution:
     def minWindow(self, s, t):
-        need, missing = collections.Counter(t), len(t)
-        i = I = J = 0
-        
-        for j, c in enumerate(s, 1):
-            missing -= need[c] > 0
-            need[c] -= 1
-            
-            if not missing:
-                while i < j and need[s[i]] < 0:
-                    need[s[i]] += 1
+        """
+        :type s: str
+        :type t: str
+        :rtype: str
+        """
+
+        """
+        S = "ADOBECODEBANC", T = "ABC"
+
+        """
+        need_count = len(t)
+        need = collections.Counter(t)
+
+        i = 0
+        # use a sliding window to scan the string
+        shortest_len = len(s)
+        start = 0
+        end = len(s) - 1
+        for j in range(len(s)):
+            # expand the window until all letters in t are covered.
+            if s[j] in need:
+                if need_count > 0 and need[s[j]] > 0:
+                    need_count -= 1
+                need[s[j]] -= 1
+
+                # if the window contain more than enough characters
+
+                while i <= j and (s[i] not in need or need[s[i]] < 0):
+                    if s[i] in need:
+                        need[s[i]] += 1
                     i += 1
-                    
-                if not J or j - i <= J - I:
-                    I, J = i, j
-                
-        
-        return s[I:J]
+                    # if the sequence is smaller than min_seq, record it
+                new_len = j - i + 1
+
+                if need_count == 0 and new_len < shortest_len:
+                    start = i
+                    end = j
+                    shortest_len = new_len
+
+        if need_count > 0:
+            return ""
+
+        return s[start:end + 1]
+
+
+s = Solution()
+print(s.minWindow("ADOBECODEBANC", "ABC"))
+
 ```
 
+## Design
+### [297. Serialize and Deserialize Binary Tree](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/)
+```python
+def serialize(self, root):
+    preorder = ''
+    if not root:
+        preorder += ',None'
+        return preorder
+    preorder += ','+str(root.val)
+    preorder += self.serialize(root.left)
+    preorder += self.serialize(root.right)
+    return preorder
+
+def deserialize(self, encode_data):
+    pos = -1
+    data = encode_data[1:].split(',')
+    for i in xrange(len(data)):
+        if data[i] == 'None':
+            data[i] = None
+        else:
+            data[i] = int(data[i])
+    root, count = self.buildTree(data, pos)
+    return root
+    
+def buildTree(self, data, pos):
+    pos += 1
+    if pos >= len(data) or data[pos]==None:
+        return None, pos
+        
+    root = TreeNode(data[pos])
+    root.left, pos = self.buildTree(data, pos)
+    root.right, pos = self.buildTree(data, pos)
+    return root, pos
+```
+https://leetcode.com/problems/serialize-and-deserialize-binary-tree/discuss/74434/Python-preorder-recursive-traversal

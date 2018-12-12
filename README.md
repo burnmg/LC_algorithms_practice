@@ -2360,6 +2360,36 @@ Rule out ineligible rows and columns
 
 ## String
 
+### [158. Read N Characters Given Read4 II - Call multiple times
+](https://leetcode.com/problems/read-n-characters-given-read4-ii-call-multiple-times/)
+
+```python
+
+class Solution(object):
+    def __init__(self):
+        self.queue = []
+    
+    
+    def read(self, buf, n):
+        idx = 0
+        curr = None
+        while curr != 0 :
+            buf4 = [""]*4
+            l = read4(buf4)
+            
+            # read 4 chars into the queue
+            self.queue.extend(buf4)
+            
+            # this condition ensures that
+            # it stops the loop when the queue is empty (which means all buffer have been read) or 
+            # we have read n chars
+            curr = min(len(self.queue), n-idx)
+            for i in xrange(curr):
+                buf[idx] = self.queue.pop(0)
+                idx+=1
+        return idx
+```
+
 ### [214. Shortest Palindrome](https://leetcode.com/problems/shortest-palindrome/description/)
 
 ```python

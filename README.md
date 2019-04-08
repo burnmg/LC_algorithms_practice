@@ -2722,6 +2722,43 @@ It is also normal to see that we use alphabet to search and check chars in strin
 
 ## Tree
 
+### [979. Distribute Coins in Binary Tree](https://leetcode.com/problems/distribute-coins-in-binary-tree/)
+
+```python
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def distributeCoins(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        
+        """
+        
+        """
+        res = [0]
+        def rec(root, res):
+            
+            if not root: return 0
+            left = rec(root.left, res)
+            right = rec(root.right, res)
+            res[0] += abs(left) + abs(right)
+            
+            return root.val + left + right - 1
+                
+            
+        rec(root, res)
+        return res[0]
+
+```
+This is a very good and typical problem. We count the number of coins move through each edges in the tree. 
+
 ### [863. All Nodes Distance K in Binary Tree](https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/description/)
 
 ```python

@@ -2764,6 +2764,36 @@ It is also normal to see that we use alphabet to search and check chars in strin
 
 ## Tree
 
+### [285. Inorder Successor in BST](https://leetcode.com/problems/inorder-successor-in-bst/)
+
+```python
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def inorderSuccessor(self, root, p):
+        """
+        :type root: TreeNode
+        :type p: TreeNode
+        :rtype: TreeNode
+        """
+        
+        succ = None
+        
+        while root:
+            if p.val < root.val:
+                succ = root
+                root = root.left
+            else:
+                root = root.right 
+        
+        return succ
+```
+
 ### [979. Distribute Coins in Binary Tree](https://leetcode.com/problems/distribute-coins-in-binary-tree/)
 
 ```python

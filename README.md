@@ -24,7 +24,9 @@ class Solution(object):
         return res
     
 ```
-Think in this way: as we travel to the next sight, the previous sight is fading away, we update the previous sight when it completely fades. 
+Think in this way: as we travel to the next sight, the previous sight is fading away, we update the previous sight when it completely fades or we find the better previous sight.
+
+`cur` here tracks the best previous sight we have met relative to the current position. 
 
 ### [229. Majority Element II](https://leetcode.com/problems/majority-element-ii/description/)
 

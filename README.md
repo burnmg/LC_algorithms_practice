@@ -5,6 +5,27 @@ Practice makes perfect.
 
 ## Array
 
+
+### [1014. Best Sightseeing Pair](https://leetcode.com/problems/best-sightseeing-pair/)
+
+```python
+class Solution(object):
+    def maxScoreSightseeingPair(self, A):
+        """
+        :type A: List[int]
+        :rtype: int
+        """
+        
+        res = cur = 0
+        for a in A:
+            res = max(res, cur + a)
+            cur = max(cur, a) - 1
+            
+        return res
+    
+```
+Think in this way: as we travel to the next sight, the previous sight is fading away, we update the previous sight when it completely fades. 
+
 ### [229. Majority Element II](https://leetcode.com/problems/majority-element-ii/description/)
 
 ```python

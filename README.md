@@ -2203,6 +2203,55 @@ Template for reversing linked lists.
 
 ## Binary Search
 
+### [981. Time Based Key-Value Store](https://leetcode.com/problems/time-based-key-value-store/)
+
+```python
+class TimeMap(object):
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.vals = collections.defaultdict(list)
+        self.timestamps = collections.defaultdict(list)
+        
+
+    def set(self, key, value, timestamp):
+        """
+        :type key: str
+        :type value: str
+        :type timestamp: int
+        :rtype: None
+        """
+        self.timestamps[key].append(timestamp)
+        self.vals[key].append(value)
+        
+            
+
+    def get(self, key, timestamp):
+        """
+        :type key: str
+        :type timestamp: int
+        :rtype: str
+        """
+        if key in self.timestamps:
+            idx = bisect.bisect_right(self.timestamps[key], timestamp)
+            if idx == 0:
+                return ""
+            return self.vals[key][idx-1]
+        else:
+            return ""
+        
+
+
+# Your TimeMap object will be instantiated and called as such:
+# obj = TimeMap()
+# obj.set(key,value,timestamp)
+# param_2 = obj.get(key,timestamp)
+```
+
+The usage of bisect_right
+
 ### [287. Find the Duplicate Number](https://leetcode.com/problems/find-the-duplicate-number/description/)
 
 ```python

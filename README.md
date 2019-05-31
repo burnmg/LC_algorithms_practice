@@ -4352,3 +4352,33 @@ def buildTree(self, data, pos):
     return root, pos
 ```
 https://leetcode.com/problems/serialize-and-deserialize-binary-tree/discuss/74434/Python-preorder-recursive-traversal
+
+## Union-Find
+
+### [947. Most Stones Removed with Same Row or Column](https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/)
+
+```python
+class Solution:
+    def removeStones(self, stones: List[List[int]]) -> int:
+        
+        uf = {}
+        
+        def find(x):
+            if x != uf[x]:
+                return find(uf[x])
+            
+            return uf[x]
+        
+        def union(x, y):
+            uf.setdefault(x, x)
+            uf.setdefault(y, y)
+            
+            uf[find(x)] = find(y)
+            
+        for i, j in stones:
+            union(i, ~j)
+        
+        return len(stones) - len({find(x) for x in uf})
+        
+```
+The use of Union-Find.

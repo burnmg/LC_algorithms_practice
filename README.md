@@ -553,6 +553,52 @@ Remember to use '<=' in the loop of two pointer algorithms.
 
 ## Hashtable
 
+### []()
+
+```python
+class Solution:
+    def groupStrings(self, strings):
+        _hash = collections.defaultdict(list)
+        for x in strings:
+            key = tuple(map(lambda a: (ord(a) - ord(x[0])) % 26, x))
+            _hash[key].append(x)
+        return [_hash[key] for key in _hash]
+```
+First, we encode each word from the same group into one key by `map(lambda a: (ord(a) - ord(x[0])) % 26, x)` (distance between each letter. If two words are in the same group, they must have the same such an encoding). Then put those words into this key's hash value. 
+
+The smart idea is `% 26` so that "az" can shift to "ba". 
+
+### [325. Maximum Size Subarray Sum Equals k](https://leetcode.com/problems/maximum-size-subarray-sum-equals-k/)
+
+```python
+class Solution:
+    def maxSubArrayLen(self, nums: List[int], k: int) -> int:
+        
+        total = 0
+        _hash = {} # sum_val: 
+        max_len = float("-inf")
+        for i in range(len(nums)):
+            total += nums[i]
+            if total not in _hash:
+                _hash[total] = i
+            remain = total - k
+            
+            if remain == 0:
+                max_len = max(i+1, max_len)
+            elif remain in _hash:
+                max_len = max(i - _hash[remain], max_len)
+                
+        if max_len == float("-inf"):
+            return 0
+        
+        return max_len
+            
+                
+```
+It uses the idea of subtraction of two subarrays starting at index 0 to get a sum of a subarray. 
+
+https://leetcode.com/problems/maximum-size-subarray-sum-equals-k/discuss/77819/Python-O(n)-time-solution-one-pass-with-hash-table
+
 ### [939. Minimum Area Rectangle](https://leetcode.com/problems/minimum-area-rectangle/)
 
 ```python

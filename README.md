@@ -553,7 +553,7 @@ Remember to use '<=' in the loop of two pointer algorithms.
 
 ## Hashtable
 
-### []()
+### [249. Group Shifted Strings](https://leetcode.com/problems/group-shifted-strings/)
 
 ```python
 class Solution:

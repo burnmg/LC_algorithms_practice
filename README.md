@@ -553,6 +553,69 @@ Remember to use '<=' in the loop of two pointer algorithms.
 
 ## Hashtable
 
+### [380. Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1/)
+
+```python
+class RandomizedSet:
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.dic = {}
+        self.list = []
+        
+
+    def insert(self, val: int) -> bool:
+        """
+        Inserts a value to the set. Returns true if the set did not already contain the specified element.
+        """
+        if val not in self.dic:
+            self.dic[val] = len(self.list)
+            self.list.append(val)
+            return True
+        
+        return False 
+
+    def remove(self, val: int) -> bool:
+        """
+        Removes a value from the set. Returns true if the set contained the specified element.
+        """
+        if val in self.dic:
+            tmp_val = self.list[len(self.list) - 1]
+            
+            idx = self.dic[val]
+            self.list[idx], self.list[len(self.list) - 1] = tmp_val, self.list[idx]
+            
+            self.dic[tmp_val] = idx
+            
+            self.list.pop()
+            
+            del self.dic[val]
+            return True
+        
+        return False
+        
+
+    def getRandom(self) -> int:
+        """
+        Get a random element from the set.
+        """
+        return self.list[random.randint(0, len(self.list) - 1)]
+
+
+# Your RandomizedSet object will be instantiated and called as such:
+# obj = RandomizedSet()
+# param_1 = obj.insert(val)
+# param_2 = obj.remove(val)
+# param_3 = obj.getRandom()
+```
+This solution shows how to use O(1) to remove an item with an index: swapping the deleting item to the last of the list, then pop it. 
+
+
+
+
+
 ### [249. Group Shifted Strings](https://leetcode.com/problems/group-shifted-strings/)
 
 ```python

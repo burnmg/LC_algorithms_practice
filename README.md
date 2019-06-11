@@ -553,6 +553,37 @@ Remember to use '<=' in the loop of two pointer algorithms.
 
 ## Hashtable
 
+
+### [525. Contiguous Array](https://leetcode.com/problems/contiguous-array/submissions/)
+
+```python
+class Solution(object):
+    def findMaxLength(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        
+        _hash = collections.defaultdict(list) # missing_val, index
+        balance = 0
+        max_len = 0
+        _hash[0].append(-1)
+        
+        for i in range(len(nums)):
+            balance += nums[i] if nums[i] == 1 else -1
+            
+            if balance in _hash:
+                cur_len = i - _hash[balance][0]
+                max_len = max(cur_len, max_len)
+            
+            _hash[balance].append(i)
+        
+        return max_len
+```
+https://leetcode.com/problems/contiguous-array/discuss/99655/Python-O(n)-Solution-with-Visual-Explanation
+
+See this solution. 
+
 ### [380. Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1/)
 
 ```python
@@ -1072,7 +1103,7 @@ class Solution:
 ```
 Find a number that is one product of the current number. Then we see if the other number is in our dp list. If yest, simply add the product of their dp values. 
 
-### [42. Trapping Rain Water][https://leetcode.com/problems/trapping-rain-water/description/]
+### [42. Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/description/)
 
 ```python
 class Solution(object):

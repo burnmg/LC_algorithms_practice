@@ -2376,6 +2376,60 @@ Template for reversing linked lists.
 
 ## Binary Search
 
+### []()
+
+```python
+class Solution:
+    
+    
+    def findMaxAverage(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: float
+        """
+        
+        def exists_greater_or_equal_subarray(val):
+            # i, j is the subarray of length 
+            sum_until_j = 0
+            for j in range(k):
+                # See derivation from https://leetcode.com/problems/maximum-average-subarray-ii/discuss/105482/Python-solution-with-detailed-explanation
+                sum_until_j += nums[j] - val
+            
+            if sum_until_j >= 0:
+                return True
+            else:
+                # minus the min_prefix to get max possible subarray
+                sum_until_i, min_sum_until_i = 0.0, 0.0
+                for j in range(k, len(nums)):
+                    sum_until_j = sum_until_j + nums[j] - val
+                    sum_until_i = sum_until_i + nums[j-k] - val
+                    min_sum_until_i = min(min_sum_until_i, sum_until_i)
+                    
+                    if sum_until_j >= min_sum_until_i:
+                        return True
+                return False
+                    
+        
+        # do binary search on the value range.
+        lo, hi = min(nums), max(nums)
+        precision = 1E-6
+        while hi-lo > precision:
+            mid = lo + (hi-lo)/2.0
+            if exists_greater_or_equal_subarray(mid):
+                lo = mid
+            else:
+                hi = mid
+        return lo
+      
+```
+
+Two highlights: 
+
+first, use value range as a binary search space to find max value
+
+second, to obtain the max subarray with length `k` or longer, we can minus the prefix array with `k+i` length with min sum until `i`. This is like a DP
+
 ### [981. Time Based Key-Value Store](https://leetcode.com/problems/time-based-key-value-store/)
 
 ```python

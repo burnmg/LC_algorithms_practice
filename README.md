@@ -2376,7 +2376,7 @@ Template for reversing linked lists.
 
 ## Binary Search
 
-### []()
+### [644. Maximum Average Subarray II](https://leetcode.com/problems/maximum-average-subarray-ii/)
 
 ```python
 class Solution:

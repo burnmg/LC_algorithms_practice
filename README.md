@@ -3063,6 +3063,47 @@ It is also normal to see that we use alphabet to search and check chars in strin
 
 ## Tree
 
+### [222. Count Complete Tree Nodes](https://leetcode.com/problems/count-complete-tree-nodes/)
+
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    # https://leetcode.com/problems/count-complete-tree-nodes/discuss/62088/My-python-solution-in-O(lgn-*-lgn)-time
+    # 
+    def countNodes(self, root: TreeNode) -> int:
+        
+        if not root:
+            return 0
+        
+        left_depth = self.getDepth(root.left)
+        right_depth = self.getDepth(root.right)
+        
+        if left_depth == right_depth:
+            return pow(2, left_depth)  + self.countNodes(root.right)
+        else:
+            return pow(2, right_depth)  + self.countNodes(root.left)
+    
+    
+    def getDepth(self, root):
+        if not root:
+            return 0
+        
+        return 1 + self.getDepth(root.left)
+    
+```
+
+compare the depth between left sub tree and right sub tree.
+A, If it is equal, it means the left sub tree is a full binary tree
+B, It it is not , it means the right sub tree is a full binary tree
+
+https://leetcode.com/problems/count-complete-tree-nodes/discuss/62088/My-python-solution-in-O(lgn-*-lgn)-time
+
 ### [285. Inorder Successor in BST](https://leetcode.com/problems/inorder-successor-in-bst/)
 
 ```python
